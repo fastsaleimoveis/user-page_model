@@ -54,7 +54,7 @@ export async function getServerSideProps(context: any) {
     }
 }
 
-export default function Home({ data }: any) {
+export default function About({ data }: any) {
     const [load, setLoad] = useState(true);
 
     useEffect(() => {
@@ -77,14 +77,14 @@ export default function Home({ data }: any) {
             <ScriptInjector scriptContent={data.data.header_script} />
         }
          <Header data={data.data.personal_page_headers[0]}/>
-        {!load && data.data.personal_page_sections.filter((sections:any) => sections.page_location === 'home').map((page:any, index:number) => (
+         {!load && data.data.personal_page_sections.filter((sections:any) => sections.page_location === 'sobre').map((page:any, index:number) => (
         <Banner
             key={index}
             style={{
                 backgroundColor:`${page.background_color}`,
+                position:'relative',
                 minHeight:`${page.banner_height * 10}px`,
-                display:'flex',
-                position:'relative'
+                display:'flex'
             }}
             >
             <div style={{width:'100%', padding:'20px 0', position:'relative', zIndex:'1'}}>

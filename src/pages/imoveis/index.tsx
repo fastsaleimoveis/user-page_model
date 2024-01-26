@@ -14,9 +14,10 @@ import { Header } from '@/components/parts/header';
 import { Footer } from '@/components/parts/footer';
 import { Whats } from '@/components/parts/whats';
 import { Cooklies } from '@/components/parts/cookies';
+import { PropertiesCatalog } from '@/components/parts/propertiesCatalog';
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Head from 'next/head';
 
 export async function getServerSideProps(context: any) {
     try {
@@ -54,7 +55,7 @@ export async function getServerSideProps(context: any) {
     }
 }
 
-export default function Home({ data }: any) {
+export default function Imoveis({ data }: any) {
     const [load, setLoad] = useState(true);
 
     useEffect(() => {
@@ -66,28 +67,28 @@ export default function Home({ data }: any) {
     return (
       <main>
         <Head>
-            <title>{data.data.seo_title}</title>
-            <meta name="description" content={data.data.seo_description} />
-            <meta property="og:title" content={data.data.seo_title} />
-            <meta property="og:image" content={data.data.seo_image} />
-            <meta property="og:description" content={data.data.seo_description} />
+            <title>{data?.data.seo_title}</title>
+            <meta name="description" content={data?.data.seo_description} />
+            <meta property="og:title" content={data?.data.seo_title} />
+            <meta property="og:image" content={data?.data.seo_image} />
+            <meta property="og:description" content={data?.data.seo_description} />
             <link rel="icon" href="/favicon.ico" />
         </Head>
         {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
         }
          <Header data={data.data.personal_page_headers[0]}/>
-        {!load && data.data.personal_page_sections.filter((sections:any) => sections.page_location === 'home').map((page:any, index:number) => (
+        {!load && data.data.personal_page_sections.filter((sections:any) => sections.page_location === 'lista').map((page:any, index:number) => (
         <Banner
             key={index}
             style={{
                 backgroundColor:`${page.background_color}`,
+                position:'relative',
                 minHeight:`${page.banner_height * 10}px`,
-                display:'flex',
-                position:'relative'
+                display:'flex'
             }}
             >
-            <div style={{width:'100%', padding:'20px 0', position:'relative', zIndex:'1'}}>
+            <div style={{width:'100%', padding:'20px 0'}}>
                 {page.type === 1 &&
                     <Type1 banner={page}/>
                 }
@@ -116,6 +117,7 @@ export default function Home({ data }: any) {
             }}></div>
         </Banner>
         ))}
+        <PropertiesCatalog data={data.data.personal_page_cards[0]}/>
         <Footer data={data.data.personal_page_footers[0]}/>
         {data && 
             <BodyScriptInjector scriptContent={data.data.body_script} />
