@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { FaWhatsapp } from "react-icons/fa";
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
   interface WhatsProps {
     data?:any;
@@ -13,11 +14,9 @@ import { useEffect, useState } from 'react';
     const [load, setLoad] = useState(true);
 
     useEffect(() => {
-      console.log('teste')
       if(data){
-      console.log('teste2')
-
         setLoad(false)
+        console.log(data)
       }
     }, [data])
 
@@ -28,12 +27,13 @@ import { useEffect, useState } from 'react';
           color={data.data_2}
           size={data.data_3}
         >
-            <FaWhatsapp />
+            <Link href={`https://wa.me/${data.text_1}`} target="_blank"><FaWhatsapp /></Link>
         </WhatsButton>
       :
         <></>
     )
   }
+
 
 const WhatsButton = styled.div<{
   bgcolor:string,
@@ -56,10 +56,15 @@ const WhatsButton = styled.div<{
   justify-content:center;
   z-index:99;
 
-  & svg{
-    color:${p => p.color ? p.color : '#fff'};
+  & a{
     width:60%;
     height:60%;
+  }
+
+  & svg{
+    color:${p => p.color ? p.color : '#fff'};
+    width:100%;
+    height:100%;
     transition:0.2s;
   }
 
