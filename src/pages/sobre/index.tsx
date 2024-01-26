@@ -17,6 +17,7 @@ import { Cooklies } from '@/app/components/parts/cookies';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 export async function getServerSideProps(context: any) {
     try {
@@ -25,8 +26,8 @@ export async function getServerSideProps(context: any) {
         const domain = `https://${req.headers.host}`;
 
         const body = {
-            domain: 'https://teste3.fastsaleimoveis.com.br',
-            // domain: domain,
+            // domain: 'https://teste3.fastsaleimoveis.com.br',
+            domain: domain,
         };
 
         const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
@@ -64,15 +65,16 @@ export default function About({ data }: any) {
       }, [data])
 
     return (
+      <HelmetProvider>
       <main>
-        <Head>
+        < Helmet>
             <title>{data.data.seo_title}</title>
             <meta name="description" content={data.data.seo_description} />
             <meta property="og:title" content={data.data.seo_title} />
             <meta property="og:image" content={data.data.seo_image} />
             <meta property="og:description" content={data.data.seo_description} />
             <link rel="icon" href="/favicon.ico" />
-        </Head>
+        </Helmet>
         {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
         }
@@ -132,6 +134,7 @@ export default function About({ data }: any) {
           </div>
         ))}
       </main>
+      </HelmetProvider>
     );
   }
   

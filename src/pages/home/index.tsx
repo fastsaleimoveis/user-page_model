@@ -26,8 +26,8 @@ export async function getServerSideProps(context: any) {
         const domain = `https://${req.headers.host}`;
 
         const body = {
-            domain: 'https://teste3.fastsaleimoveis.com.br',
-            // domain: domain,
+            // domain: 'https://teste3.fastsaleimoveis.com.br',
+            domain: domain,
         };
 
         const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
@@ -39,12 +39,6 @@ export async function getServerSideProps(context: any) {
         });
 
         const data = await response.json();
-
-        const metaTags = {
-            title: data.data.seo_title,
-            description: data.data.seo_description,
-            image: data.data.seo_image,
-        };
 
         return {
             props: {
