@@ -63,6 +63,21 @@ export async function getServerSideProps(context: any) {
     }
 }
 
+export async function generateMetadata({imovel}:any) {
+  
+      return {
+        title: imovel.title ?? '',
+        description: imovel.description ?? '',
+          openGraph: {
+            title: imovel.title ?? '',
+            description: imovel.description ?? '',
+            images: [{
+              url: imovel.photos[0].src ?? '',
+            },]
+          },
+      }
+    }
+
 export default function Imovel({ data, imovel }: any) {
     const [load, setLoad] = useState(true);
 
