@@ -14,6 +14,7 @@ function Fancybox(props) {
       return () => {
         NativeFancybox.destroy();
       };
+      /* eslint-disable */
     }, []);
   
     return <>{props.children}</>;

@@ -79,6 +79,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
         .then(response => {
             setImoveis(response.data.data);
         });
+        /* eslint-disable */
       }, [])
 
     return (

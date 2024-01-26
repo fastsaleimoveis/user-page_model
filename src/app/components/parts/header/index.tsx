@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -44,9 +45,9 @@ import styled from 'styled-components';
               textdecoration={data.text_decoration}
               texttransform={data.text_transform}
               >
-                <li><a href="/imoveis">Buscar imóvel</a></li>
-                <li><a href="/home">Destaques</a></li>
-                <li><a href="/sobre">Quem somos</a></li>
+                <li><Link href="/imoveis">Buscar imóvel</Link></li>
+                <li><Link href="/home">Destaques</Link></li>
+                <li><Link href="/sobre">Quem somos</Link></li>
               </HeaderMenu>
               :
               <ToogleMenu
@@ -69,9 +70,9 @@ import styled from 'styled-components';
               textdecoration={data.text_decoration}
               texttransform={data.text_transform}
             >
-              <li><a href="/imoveis">Buscar imóvel</a></li>
-              <li><a href="/home">Destaques</a></li>
-              <li><a href="/sobre">Quem somos</a></li>
+              <li><Link href="/imoveis">Buscar imóvel</Link></li>
+              <li><Link href="/home">Destaques</Link></li>
+              <li><Link href="/sobre">Quem somos</Link></li>
             </MobileMenuContainer>
           }
         </>

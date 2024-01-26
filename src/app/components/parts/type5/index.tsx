@@ -22,11 +22,11 @@ import { useEffect, useState } from 'react';
       <BannerContainer>
         <BannerRow>
           <BannerColImage>
-            <Image
+            <ImageC
               image={banner.high_image}
               imageheight={banner.high_image_height}
               imagewidth={banner.high_image_width}
-            ></Image>
+            ></ImageC>
           </BannerColImage>
         </BannerRow>
       </BannerContainer>
@@ -58,7 +58,7 @@ import { useEffect, useState } from 'react';
     justify-content:center;
   `;
 
-  const Image = styled.div<{
+  const ImageC = styled.div<{
     image:string,
     imageheight:number,
     imagewidth:number,

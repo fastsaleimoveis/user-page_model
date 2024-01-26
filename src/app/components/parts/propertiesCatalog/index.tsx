@@ -5,10 +5,7 @@ import { ImovelCard } from '../card';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-import houseGreenIcon from '@/icons/house_green.png';
-import buildingGreenIcon from '@/icons/building_green.png';
-import terrainGreenIcon from '@/icons/terrain_green.png';
-import shopGreenIcon from '@/icons/shop_green.png';
+
 import { IoSearchOutline } from 'react-icons/io5';
 import { Pagination } from '@mui/material';
 import CurrencyInput from './currencyInput';
@@ -94,6 +91,7 @@ import { IoMdClose } from 'react-icons/io';
       useEffect(() => {
         handleProperties();
         updateURL();
+        /* eslint-disable */
       }, [search, category, local, minPrice, maxPrice, rooms, garage, page]);
 
       const updateURL = () => {
@@ -500,19 +498,19 @@ const CategoryContainer = styled.div`
     }
 
     &#house .icon{
-      background-image: url('${houseGreenIcon.src}');
+      background-image: url('/house_green.png');
     }
     
     &#apartment .icon{
-      background-image: url('${buildingGreenIcon.src}');
+      background-image: url('/building_green.png');
     }
     
     &#outros .icon{
-      background-image: url('${terrainGreenIcon.src}');
+      background-image: url('/terrain_green.png');
     }
     
     &#commercial .icon{
-      background-image: url('${shopGreenIcon.src}');
+      background-image: url('/shop_green.png');
     }
     
   }

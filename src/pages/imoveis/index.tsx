@@ -1,20 +1,20 @@
-import ScriptInjector from './../../components/ScriptInjector';
-import BodyScriptInjector from './../../components/BodyScriptInjector';
+import ScriptInjector from '@/app/components/ScriptInjector';
+import BodyScriptInjector from '@/app/components/BodyScriptInjector';
 import React from 'react';
-import { Type1 } from '@/components/parts/type1';
-import { Type2 } from '@/components/parts/type2';
+import { Type1 } from '@/app/components/parts/type1';
+import { Type2 } from '@/app/components/parts/type2';
 import { styled } from 'styled-components';
-import './../../app/globals.css';
-import { Type4 } from '@/components/parts/type4';
-import { Type5 } from '@/components/parts/type5';
-import { SearchBar1 } from '@/components/parts/searchBar1';
-import { SearchBar2 } from '@/components/parts/searchBar2';
-import { Type3 } from '@/components/parts/type3';
-import { Header } from '@/components/parts/header';
-import { Footer } from '@/components/parts/footer';
-import { Whats } from '@/components/parts/whats';
-import { Cooklies } from '@/components/parts/cookies';
-import { PropertiesCatalog } from '@/components/parts/propertiesCatalog';
+import '@/app/globals.css';
+import { Type4 } from '@/app/components/parts/type4';
+import { Type5 } from '@/app/components/parts/type5';
+import { SearchBar1 } from '@/app/components/parts/searchBar1';
+import { SearchBar2 } from '@/app/components/parts/searchBar2';
+import { Type3 } from '@/app/components/parts/type3';
+import { Header } from '@/app/components/parts/header';
+import { Footer } from '@/app/components/parts/footer';
+import { Whats } from '@/app/components/parts/whats';
+import { Cooklies } from '@/app/components/parts/cookies';
+import { PropertiesCatalog } from '@/app/components/parts/propertiesCatalog';
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Head from 'next/head';
@@ -26,8 +26,8 @@ export async function getServerSideProps(context: any) {
         const domain = `https://${req.headers.host}`;
 
         const body = {
-            // domain: 'https://teste3.fastsaleimoveis.com.br',
-            domain: domain,
+            domain: 'https://teste3.fastsaleimoveis.com.br',
+            // domain: domain,
         };
 
         const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {

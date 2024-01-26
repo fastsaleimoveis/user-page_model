@@ -21,11 +21,11 @@ import styled from 'styled-components';
       <BannerContainer>
         <BannerRow>
           <BannerColImage>
-            <Image
+            <ImageC
               image={banner.high_image}
               imageheight={banner.high_image_height}
               imagewidth={banner.high_image_width}
-            ></Image>
+            ></ImageC>
           </BannerColImage>
           <BannerCol
             fontsize={banner.title_size}
@@ -139,7 +139,7 @@ import styled from 'styled-components';
     }
   `;
 
-  const Image = styled.div<{
+  const ImageC = styled.div<{
     image:string,
     imageheight:number,
     imagewidth:number,

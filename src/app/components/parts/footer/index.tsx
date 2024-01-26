@@ -4,6 +4,7 @@ import { LuMapPin } from "react-icons/lu";
 import { RiYoutubeLine } from 'react-icons/ri';
 import { AiOutlineFacebook } from "react-icons/ai";
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
   interface FooterProps {
     data?:any;
@@ -41,9 +42,9 @@ import { useEffect, useState } from 'react';
                 texttransform={data.text_transform}
               >
                 <h3>Menu</h3>
-                <li><a href="/imoveis">Buscar imóvel</a></li>
-                <li><a href="/home">Destaques</a></li>
-                <li><a href="/sobre">Quem somos</a></li>
+                <li><Link href="/imoveis">Buscar imóvel</Link></li>
+                <li><Link href="/home">Destaques</Link></li>
+                <li><Link href="/sobre">Quem somos</Link></li>
               </FooterLinksMenu>}
               <FooterContatoMenu
                 textcolor={data.text_color}
@@ -57,9 +58,9 @@ import { useEffect, useState } from 'react';
                 <li><LuMapPin />{data.address1}</li>
                 <li className="address-2">{data.address2}</li>
                 <div className="social-links">
-                  {(data.instagram && data.instagram !== '') && <a href={'https://instagram.com/' + data.instagram} target="_blank"><FaInstagram /></a>}
-                  {(data.youtube && data.youtube !== '') && <a href={'https://youtube.com/' + data.youtube} target="_blank"><RiYoutubeLine /></a>}
-                  {(data.facebook && data.facebook !== '') && <a href={'https://facebook.com/' + data.facebook} target="_blank"><AiOutlineFacebook /></a>}
+                  {(data.instagram && data.instagram !== '') && <Link href={'https://instagram.com/' + data.instagram} target="_blank"><FaInstagram /></Link>}
+                  {(data.youtube && data.youtube !== '') && <Link href={'https://youtube.com/' + data.youtube} target="_blank"><RiYoutubeLine /></Link>}
+                  {(data.facebook && data.facebook !== '') && <Link href={'https://facebook.com/' + data.facebook} target="_blank"><AiOutlineFacebook /></Link>}
                 </div>
               </FooterContatoMenu>
             </FooterMenu>

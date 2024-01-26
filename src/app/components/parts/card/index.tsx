@@ -28,7 +28,7 @@ import { useEffect, useState } from 'react';
           window.open('/imovel/' + imovel.slug, '_parent')
         }, 0);
       }}>
-        <Image style={{backgroundImage:`url('${imovel?.photos?.filter((photos : any) => photos.order === 0)[0].url}')`}}></Image>
+        <ImageC style={{backgroundImage:`url('${imovel?.photos?.filter((photos : any) => photos.order === 0)[0].url}')`}}></ImageC>
         <InfoContainer bgcolor={data?.background_color}>
           <Title
             textcolor={data?.text_color}
@@ -99,7 +99,7 @@ import { useEffect, useState } from 'react';
     box-shadow:0 0 5px rgba(0,0,0,0.3);
   `;
 
-  const Image = styled.div`
+  const ImageC = styled.div`
     background-position:center center;
     background-size:cover;
     background-color:#cdcdcd;
