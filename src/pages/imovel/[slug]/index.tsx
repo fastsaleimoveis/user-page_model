@@ -75,7 +75,6 @@ export default function Imovel({ data, imovel }: any) {
     return (
       <HelmetProvider>
       <main>
-        {imovel && (
             <Helmet>
                 <title>{imovel.title}</title>
                 <meta name="description" content={imovel.description} />
@@ -83,7 +82,6 @@ export default function Imovel({ data, imovel }: any) {
                 <meta property="og:description" content={imovel.description} />
                 <link rel="icon" href="/favicon.ico" />
             </Helmet>
-        )}
         {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
         }
