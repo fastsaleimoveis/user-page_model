@@ -10,38 +10,8 @@ import { Property } from '@/app/components/parts/property';
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Head from 'next/head';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
-export async function generateMetadata(context: any) {
-    const slug = context.params.slug;
-    const { req } = context;
-    const domain = `https://${req.headers.host}`;
-
-    const body = {
-         domain: domain,
-     };
-
-    const responseImovel = await fetch(`https://dev.fastsaleimoveis.com.br/api/public/property-slug/${slug}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-    });
-
-    const imovel = await responseImovel.json();
-  
-      return {
-        title: imovel.title ?? '',
-        description: imovel.description ?? '',
-          openGraph: {
-            title: imovel.title ?? '',
-            description: imovel.description ?? '',
-            images: [{
-              url: imovel.photos[0].src ?? '',
-            },]
-          },
-      }
-    }
 
 export async function getServerSideProps(context: any) {
     try {
@@ -103,7 +73,15 @@ export default function Imovel({ data, imovel }: any) {
       }, [data])
 
     return (
+      <HelmetProvider>
       <main>
+            <Helmet>
+                <title>{imovel.title}</title>
+                <meta name="description" content={imovel.description} />
+                <meta property="og:title" content={imovel.title} />
+                <meta property="og:description" content={imovel.description} />
+                <link rel="icon" href="/favicon.ico" />
+            </Helmet>
         {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
         }
@@ -131,5 +109,6 @@ export default function Imovel({ data, imovel }: any) {
           </div>
         ))}
       </main>
+      </HelmetProvider>
     );
   }
