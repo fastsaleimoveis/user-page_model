@@ -68,11 +68,15 @@ export default function Imoveis({ data }: any) {
     return (
       <main>
         <Head>
-            <title>{data?.data.seo_title}</title>
-            <meta name="description" content={data?.data.seo_description} />
-            <meta property="og:title" content={data?.data.seo_title} />
-            <meta property="og:image" content={data?.data.seo_image} />
-            <meta property="og:description" content={data?.data.seo_description} />
+        {data && 
+        <>
+            <title>{data.data.seo_title}</title>
+            <meta name="description" content={data.data.seo_description} />
+            <meta property="og:title" content={data.data.seo_title} />
+            <meta property="og:image" content={data.data.seo_image} />
+            <meta property="og:description" content={data.data.seo_description} />
+        </>    
+        }
             <link rel="icon" href="/favicon.ico" />
         </Head>
         {data && 

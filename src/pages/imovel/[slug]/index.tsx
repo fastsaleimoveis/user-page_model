@@ -75,10 +75,10 @@ export default function Imovel({ data, imovel }: any) {
       <main style={{boxSizing: 'initial'}}>
         {imovel && (
             <Head>
-                <title>{imovel.title}</title>
-                <meta name="description" content={imovel.description} />
-                <meta property="og:title" content={imovel.title} />
-                <meta property="og:description" content={imovel.description} />
+                <title>{imovel.title ? imovel.title : ''}</title>
+                <meta name="description" content={imovel.description ? imovel.description : ''} />
+                <meta property="og:title" content={imovel.title ? imovel.title : ''} />
+                <meta property="og:description" content={imovel.description ? imovel.description : ''} />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
         )}
