@@ -18,7 +18,7 @@ import { PropertiesCatalog } from '@/app/components/parts/propertiesCatalog';
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Head from 'next/head';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+
 
 export async function getServerSideProps(context: any) {
     try {
@@ -66,16 +66,15 @@ export default function Imoveis({ data }: any) {
       }, [data])
 
     return (
-      <HelmetProvider>
       <main>
-        < Helmet>
-            <title>{data.data.seo_title}</title>
-            <meta name="description" content={data.data.seo_description} />
-            <meta property="og:title" content={data.data.seo_title} />
-            <meta property="og:image" content={data.data.seo_image} />
-            <meta property="og:description" content={data.data.seo_description} />
+        <Head>
+            <title>{data?.data.seo_title}</title>
+            <meta name="description" content={data?.data.seo_description} />
+            <meta property="og:title" content={data?.data.seo_title} />
+            <meta property="og:image" content={data?.data.seo_image} />
+            <meta property="og:description" content={data?.data.seo_description} />
             <link rel="icon" href="/favicon.ico" />
-        </Helmet>
+        </Head>
         {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
         }
@@ -136,7 +135,6 @@ export default function Imoveis({ data }: any) {
           </div>
         ))}
       </main>
-      </HelmetProvider>
     );
   }
   
