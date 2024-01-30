@@ -27,7 +27,7 @@ import Link from 'next/link';
           color={data.data_2}
           size={data.data_3}
         >
-            <Link href={`https://wa.me/${data.text_1}`} target="_blank"><FaWhatsapp /></Link>
+            <Link href={`https://wa.me/${data.text_3 ? data.text_3 : ''}`} target="_blank"><FaWhatsapp /></Link>
         </WhatsButton>
       :
         <></>

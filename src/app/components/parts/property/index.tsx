@@ -154,7 +154,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
                 <button><IoLogoWhatsapp />{banner.text}</button>
                 <div className="broker">
                   <div className="broker-cover" style={{
-                    backgroundImage:`url('${realEstate ? realEstate.profile_photo : broker.profile_photo}')`
+                    backgroundImage:`url('${realEstate ? realEstate.profile_photo : broker ? broker.profile_photo : ''}')`
                   }}></div>
                   <div className="broker-name">
                     <p>{realEstate ? realEstate.name : broker.name}</p>
