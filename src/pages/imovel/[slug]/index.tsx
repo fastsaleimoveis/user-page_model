@@ -90,7 +90,7 @@ export default function Imovel({ data, imovel }: any) {
         {!load && data.data.personal_page_sections.filter((sections:any) => sections.page_location === 'imovel').map((page:any, index:number) => (
             <div key={index} style={{width:'100%', padding:'0', position:'relative', zIndex:'1'}}>
                 {page.type === 10 &&
-                    <Property imovel={imovel} broker={data.data.broker} realEstate={data.data.real_estate} banner={page} data={data.data.personal_page_cards[0]}/>
+                    <Property pageId={data.data.page_id} imovel={imovel} broker={data.data.broker} realEstate={data.data.real_estate} banner={page} data={data.data.personal_page_cards[0]}/>
                 }
             </div>
         ))}

@@ -27,6 +27,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
     imovel:any;
     broker?:any;
     realEstate?:any;
+    pageId:number
   }
   
   export function Property({
@@ -34,7 +35,8 @@ import { MdOutlineContentCopy } from 'react-icons/md';
     data,
     imovel,
     broker,
-    realEstate
+    realEstate,
+    pageId
   }: PropertyProps) {
 
     const [isMobile, setIsMobile] = useState(false);
@@ -66,6 +68,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
       }, [data])
 
       useEffect(() => {
+        if(pageId){
         axios.post('https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties?page=1', {
             categories: [imovel.categories.name],
             dorms_number: 0,
@@ -74,13 +77,14 @@ import { MdOutlineContentCopy } from 'react-icons/md';
             max_value: imovel.sale_value + 100000000,
             min_value: imovel.sale_value - 100000000,
             search: '',
-            personal_page_id: 517,
+            personal_page_id: pageId,
         })
         .then(response => {
             setImoveis(response.data.data);
         });
+      }
         /* eslint-disable */
-      }, [])
+      }, [pageId])
 
     return (
       imovel ?
@@ -158,7 +162,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
                   }}></div>
                   <div className="broker-name">
                     <p>{realEstate ? realEstate.name : broker ? broker.name : ''}</p>
-                    {realEstate.creci_j || broker.creci && <p>CRECI: {realEstate ? realEstate.creci_j : broker ? broker.creci : ''}</p>}
+                    <p>CRECI: {realEstate ? realEstate.creci_j : broker ? broker.creci : ''}</p>
                   </div>
                 </div>
               </div>
