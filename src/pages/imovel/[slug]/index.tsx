@@ -68,7 +68,6 @@ export default function Imovel({ data, imovel }: any) {
     useEffect(() => {
         if(data){
           setLoad(false)
-          console.log(data)
         }
       }, [data])
 

@@ -247,11 +247,9 @@ import { MdOutlineContentCopy } from 'react-icons/md';
                         await navigator.clipboard.writeText(inputElement.value);
                         setCopySuccess('URL copiada para a área de transferência');
                       } catch (err) {
-                        console.error('Erro ao copiar para a área de transferência', err);
                         setCopySuccess('Erro ao copiar para a área de transferência');
                       }
                     } else {
-                      console.error('Elemento de entrada não encontrado');
                       setCopySuccess('Erro ao copiar para a área de transferência');
                     }
                   }}><MdOutlineContentCopy /></span>

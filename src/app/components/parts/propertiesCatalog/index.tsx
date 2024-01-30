@@ -118,7 +118,6 @@ import { IoMdClose } from 'react-icons/io';
 
      const handleProperties = () => {
 
-      console.log(rooms)
       setLoading(true);
 
       const filters = {

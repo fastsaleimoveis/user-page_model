@@ -16,7 +16,6 @@ import Link from 'next/link';
     useEffect(() => {
       if(data){
         setLoad(false)
-        console.log(data)
       }
     }, [data])
 
