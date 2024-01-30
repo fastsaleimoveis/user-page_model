@@ -200,6 +200,7 @@ import { useEffect, useState } from 'react';
     font-weight:${p => p.texttransform ? p.texttransform : 500};
     font-style:${p => p.textstyle ? p.textstyle : 'none'};
     align-items:center;
+    font-size:12px;
   `;
 
   const Action = styled.a<{buttoncolor:string, buttonbgcolor:string}>`

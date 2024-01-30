@@ -21,8 +21,8 @@ export async function getServerSideProps(context: any) {
         const domain = `https://${req.headers.host}`;
 
         const body = {
-            // domain: 'https://teste3.fastsaleimoveis.com.br',
-            domain: domain,
+            domain: 'https://la2imoveis.com.br',
+            // domain: domain,
         };
 
         const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
@@ -68,6 +68,7 @@ export default function Imovel({ data, imovel }: any) {
     useEffect(() => {
         if(data){
           setLoad(false)
+          console.log(data)
         }
       }, [data])
 

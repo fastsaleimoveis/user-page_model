@@ -157,8 +157,8 @@ import { MdOutlineContentCopy } from 'react-icons/md';
                     backgroundImage:`url('${realEstate ? realEstate.profile_photo : broker ? broker.profile_photo : ''}')`
                   }}></div>
                   <div className="broker-name">
-                    <p>{realEstate ? realEstate.name : broker.name}</p>
-                    <p>CRECI: {realEstate ? realEstate.creci_j : broker.creci}</p>
+                    <p>{realEstate ? realEstate.name : broker ? broker.name : ''}</p>
+                    {realEstate.creci_j || broker.creci && <p>CRECI: {realEstate ? realEstate.creci_j : broker ? broker.creci : ''}</p>}
                   </div>
                 </div>
               </div>
@@ -190,14 +190,14 @@ import { MdOutlineContentCopy } from 'react-icons/md';
                 <div className="price">
                   <h3>{((imovel.sell_price ? imovel.sell_price : imovel.sale_value) / 100).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h3>
                 </div>
-                <button><Link href={`https://wa.me/55${realEstate ? realEstate.phone : broker.phone}`} target="_blank"><IoLogoWhatsapp />{banner.text}</Link></button>
+                <button><Link href={`https://wa.me/55${realEstate ? realEstate.phone?.replace(/[()\s-]/g, '') : broker ? broker.phone.replace(/[()\s-]/g, '') : ''}`} target="_blank"><IoLogoWhatsapp />{banner.text}</Link></button>
                 <div className="broker">
                   <div className="broker-cover" style={{
-                    backgroundImage:`url('${realEstate ? realEstate.profile_photo : broker.profile_photo}')`
+                    backgroundImage:`url('${realEstate ? realEstate.profile_photo : broker ? broker.profile_photo : ''}')`
                   }}></div>
                   <div className="broker-name">
-                    <p>{realEstate ? realEstate.name : broker.name}</p>
-                    <p>CRECI: {realEstate ? realEstate.creci_j : broker.creci}</p>
+                    <p>{realEstate ? realEstate.name : broker ? broker.name : ''}</p>
+                    <p>CRECI: {realEstate ? realEstate.creci_j : broker ? broker.creci : ''}</p>
                   </div>
                 </div>
               </div>
