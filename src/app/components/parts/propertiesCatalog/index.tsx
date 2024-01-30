@@ -14,6 +14,7 @@ import { IoMdClose } from 'react-icons/io';
 
   interface PropertiesCatalogProps {
     data?:any;
+    pageId:number
   }
 
   function isEqual(obj1:any, obj2:any) {
@@ -34,7 +35,7 @@ import { IoMdClose } from 'react-icons/io';
   }
   
   export function PropertiesCatalog({
-    data
+    data, pageId
   }: PropertiesCatalogProps) {
 
     const router = useRouter();
@@ -128,7 +129,7 @@ import { IoMdClose } from 'react-icons/io';
         max_value: maxPrice ? maxPrice * 100 : 0,
         min_value: minPrice ? minPrice * 100 : 0,
         search: search,
-        personal_page_id: 517,
+        personal_page_id: pageId,
       };
     
       const queryParams = new URLSearchParams();
