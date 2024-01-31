@@ -28,7 +28,7 @@ import { useEffect, useState } from 'react';
           window.open('/imovel/' + imovel.slug, '_parent')
         }, 0);
       }}>
-        <ImageC style={{backgroundImage:`url('${imovel?.photos?.filter((photos : any) => photos.order === 0)[0].url}')`}}></ImageC>
+        <ImageC style={{backgroundImage:`url('${imovel?.photos?.filter((photos : any) => photos.order === 0)[0]?.url}')`}}></ImageC>
         <InfoContainer bgcolor={data?.background_color}>
           <Title
             textcolor={data?.text_color}

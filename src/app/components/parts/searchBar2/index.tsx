@@ -218,6 +218,7 @@ import { useRouter } from 'next/router';
     position:relative;
     overflow:hidden;
     height:60px;
+    min-height:40px;
     padding:10px;
     box-shadow:0 0 5px rgba(0,0,0,0.3);
     font-family:${p => p.fontfamily ? p.fontfamily : 'Open sans'};
