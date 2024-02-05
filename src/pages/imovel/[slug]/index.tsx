@@ -21,8 +21,8 @@ export async function getServerSideProps(context: any) {
         const domain = `https://${req.headers.host}`;
 
         const body = {
-            domain: 'https://dauglis.fastsaleimoveis.com.br',
-            // domain: domain,
+            // domain: 'https://dauglis.fastsaleimoveis.com.br',
+            domain: domain,
         };
 
         const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
