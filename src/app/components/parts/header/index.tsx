@@ -51,6 +51,7 @@ import styled from 'styled-components';
               </HeaderMenu>
               :
               <ToogleMenu
+                className={`${showMenu ? 'open' : ''}`}
                 textcolor={data.text_color}
                 onClick={() => setShowMenu(!showMenu)}
               >
@@ -69,6 +70,7 @@ import styled from 'styled-components';
               textstyle={data.text_style}
               textdecoration={data.text_decoration}
               texttransform={data.text_transform}
+              padtopheight={data.header_height}
             >
               <li><Link href="/imoveis">Buscar imóvel</Link></li>
               <li><Link href="/home">Destaques</Link></li>
@@ -95,8 +97,24 @@ import styled from 'styled-components';
 
     & span{
       width:100%;
+      transition:0.2s;
+      opacity:1;
       height:2px;
       background-color:${p => p.textcolor ? p.textcolor : '#333'};
+    }
+
+    &.open{
+      & span:nth-child(1){
+        transform:rotate(45deg);
+        margin-top:0px;
+      }
+      & span:nth-child(2){
+        opacity:0;
+      }
+      & span:nth-child(3){
+        transform:rotate(-45deg);
+        margin-top:-65px;
+      }
     }
   `;
 
@@ -123,16 +141,18 @@ import styled from 'styled-components';
     textfont:string,
     textstyle:string,
     textdecoration:string,
-    texttransform:string
+    texttransform:string,
+    padtopheight:string
   }>`
     position:fixed;
-    top:80px;
+    top:${p => p.padtopheight}px;
     left:0;
     right:0;
     background-color:${e => e.bgcolor ? e.bgcolor : '#fff'};
     width:100%;
     z-index:90;
     padding:20px;
+    border-top:solid 1px ${p => p.textcolor};
 
     & li{
       list-style:none;

@@ -695,6 +695,10 @@ const SingleProperty = styled.div<{
       font-family:${p => p.fontfamily};
       font-style:${p => p.fontstyle};
       text-decoration:${p => p.textdecoration};
+
+      @media(max-width:768px){
+        text-align:center;
+      }
     }
   }
 `;

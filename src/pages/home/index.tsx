@@ -25,8 +25,8 @@ export async function getServerSideProps(context: any) {
         const domain = `https://${req.headers.host}`;
 
         const body = {
-            // domain: 'https://borgoimoveis.com.br',
-            domain: domain,
+            domain: 'https://dauglis.fastsaleimoveis.com.br',
+            // domain: domain,
         };
 
         const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
@@ -81,7 +81,7 @@ export default function Home({ data }: any) {
             <ScriptInjector scriptContent={data.data.header_script} />
         }
          <Header data={data.data.personal_page_headers[0]}/>
-        {!load && data.data.personal_page_sections.filter((sections:any) => sections.page_location === 'home').map((page:any, index:number) => (
+        {!load && data.data.personal_page_sections.sort((a:any, b:any) => a.position - b.position).filter((sections:any) => sections.page_location === 'home').map((page:any, index:number) => (
         <Banner
             key={index}
             style={{
