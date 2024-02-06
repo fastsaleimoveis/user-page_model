@@ -9,19 +9,20 @@ const BodyScriptInjector = ({ scriptContent }) => {
 
   useEffect(() => {
     if (isClient) {
-      // Remova as tags <script> do conteúdo
-      const sanitizedContent = scriptContent.replace(/<\/?script>/g, '');
+      // Crie um elemento div para parsear a string
+      const container = document.createElement('div');
+      container.innerHTML = scriptContent;
 
-      // Use dangerouslySetInnerHTML para injetar o código diretamente no JSX
-      const scriptElement = document.createElement('script');
-      scriptElement.innerHTML = sanitizedContent;
-
-      // Adicione o script ao final do corpo
-      document.body.appendChild(scriptElement);
+      // Itere sobre os filhos e adicione ao final do corpo
+      Array.from(container.children).forEach((child) => {
+        document.body.appendChild(child);
+      });
 
       return () => {
-        // Remova o script do corpo quando o componente for desmontado
-        document.body.removeChild(scriptElement);
+        // Remova os scripts do corpo quando o componente for desmontado
+        Array.from(container.children).forEach((child) => {
+          document.body.removeChild(child);
+        });
       };
     }
   }, [isClient, scriptContent]);
