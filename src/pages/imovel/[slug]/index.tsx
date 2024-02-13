@@ -78,6 +78,7 @@ export default function Imovel({ data, imovel }: any) {
                 <title>{imovel.title ? imovel.title : ''}</title>
                 <meta name="description" content={imovel.description ? imovel.description : ''} />
                 <meta property="og:title" content={imovel.title ? imovel.title : ''} />
+                <meta property="og:image" content={imovel.photos.length > 0 ? imovel.photos.sort((a:any, b:any) => a.order - b.order)[0].url : ''} />
                 <meta property="og:description" content={imovel.description ? imovel.description : ''} />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
