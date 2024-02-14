@@ -83,11 +83,13 @@ import { IoMdClose } from 'react-icons/io';
       }, [data])
 
       useEffect(() => {
-        axios.get('https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties-cities/' + 517)
-           .then(response => {
-              setLocalList(response.data.cities)
-           })
-      }, [])
+        if(pageId){
+          axios.get('https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties-cities/' + pageId)
+          .then(response => {
+             setLocalList(response.data.cities)
+          })
+        }
+      }, [pageId])
 
       useEffect(() => {
         handleProperties();
