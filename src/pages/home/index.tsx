@@ -25,7 +25,7 @@ export async function getServerSideProps(context: any) {
         const domain = `https://${req.headers.host}`;
 
         const body = {
-            // domain: 'https://la2imoveis.com.br',
+            // domain: 'https://dauglis.fastsaleimoveis.com.br',
             domain: domain,
         };
 
@@ -108,10 +108,10 @@ export default function Home({ data }: any) {
                     <Type5 banner={page}/>
                 }
                 {page.type === 6 &&
-                    <SearchBar1 banner={page}/>
+                    <SearchBar1 banner={page} user={data.data}/>
                 }
                 {page.type === 7 &&
-                    <SearchBar2 banner={page}/>
+                    <SearchBar2 banner={page} user={data.data}/>
                 }
             </div>
             <div className="background-image" style={{

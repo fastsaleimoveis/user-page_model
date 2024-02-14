@@ -110,10 +110,10 @@ export default function Imoveis({ data }: any) {
                     <Type5 banner={page}/>
                 }
                 {page.type === 6 &&
-                    <SearchBar1 banner={page}/>
+                    <SearchBar1 banner={page} user={data.data}/>
                 }
                 {page.type === 7 &&
-                    <SearchBar2 banner={page}/>
+                    <SearchBar2 banner={page} user={data.data}/>
                 }
             </div>
             <div className="background-image" style={{

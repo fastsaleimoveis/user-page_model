@@ -9,10 +9,11 @@ import { useRouter } from 'next/router';
 
   interface SearchBar1Props {
     banner:any;
+    user:any;
   }
   
   export function SearchBar1({
-    banner,
+    banner, user
   }: SearchBar1Props) {
 
     const router = useRouter();
@@ -24,11 +25,13 @@ import { useRouter } from 'next/router';
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-      axios.get('https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties-cities/' + 517)
-         .then(response => {
-            setLocalList(response.data.cities)
-         })
-    }, [])
+      if(user.page_id){
+        axios.get('https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties-cities/' + user.page_id)
+        .then(response => {
+           setLocalList(response.data.cities)
+        })
+      }
+    }, [user])
 
     useEffect(() => {
       if(banner){
@@ -180,7 +183,7 @@ import { useRouter } from 'next/router';
   const SearchInput = styled.div<{
     fontfamily:string,
   }>`
-    width:calc(100% - 40px);
+    width:100%;
     height:40px;
     border-radius:30px;
     box-shadow:0 0 3px rgba(0,0,0,0.3);

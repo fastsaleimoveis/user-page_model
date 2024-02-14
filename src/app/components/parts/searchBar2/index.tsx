@@ -10,10 +10,11 @@ import { useRouter } from 'next/router';
 
   interface SearchBar2Props {
     banner:any;
+    user:any
   }
   
   export function SearchBar2({
-    banner,
+    banner, user
   }: SearchBar2Props) {
 
     const router = useRouter();
@@ -28,12 +29,13 @@ import { useRouter } from 'next/router';
     const [price, setPrice] = useState(0)
 
     useEffect(() => {
-      axios.get('https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties-cities/' + 517)
-         .then(response => {
-            setLocalList(response.data.cities)
-         })
-    }, [])
-
+      if(user.page_id){
+        axios.get('https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties-cities/' + user.page_id)
+        .then(response => {
+           setLocalList(response.data.cities)
+        })
+      }
+    }, [user])
 
     const handleSearch = () => {
       const queryParams = new URLSearchParams({
