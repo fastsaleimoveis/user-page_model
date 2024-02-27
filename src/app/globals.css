@@ -2,7 +2,7 @@
     margin:0;
 }
 
-body{
+body, p, h1, h2, h3, h4, h5, span, li, ul, button{
     margin:0;
     font-family: 'Poppins';
     white-space: pre-line;
