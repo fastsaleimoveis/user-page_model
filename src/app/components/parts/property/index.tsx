@@ -131,6 +131,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
               buttontextdecoration={banner.text_decoration}
               buttonfontweight={banner.text_transform}
             >
+              <p>{imovel.sku}</p>
               <h3>{imovel.title}</h3>
               <div className="city">
                 <p>{imovel.address_properties.city}/{imovel.address_properties.state}</p><button onClick={toggle}><FiShare2 />Compartilhe</button>
@@ -155,7 +156,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
                 <div className="price">
                   <h3>{((imovel.sell_price ? imovel.sell_price : imovel.sale_value) / 100).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h3>
                 </div>
-                <button><IoLogoWhatsapp />{banner.text}</button>
+                <button><Link href={`https://api.whatsapp.com/send?phone=55${realEstate ? realEstate.phone?.replace(/[()\s-]/g, '') : broker ? broker.phone.replace(/[()\s-]/g, '') : ''}&text=${decodeURIComponent('Tenho interesse no imóvel: ' + imovel.title + '(' + imovel.sku + ')')}`} target="_blank"><IoLogoWhatsapp />{banner.text}</Link></button>
                 <div className="broker">
                   <div className="broker-cover" style={{
                     backgroundImage:`url('${realEstate ? realEstate.profile_photo : broker ? broker.profile_photo : ''}')`
@@ -194,7 +195,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
                 <div className="price">
                   <h3>{((imovel.sell_price ? imovel.sell_price : imovel.sale_value) / 100).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h3>
                 </div>
-                <button><Link href={`https://wa.me/55${realEstate ? realEstate.phone?.replace(/[()\s-]/g, '') : broker ? broker.phone.replace(/[()\s-]/g, '') : ''}`} target="_blank"><IoLogoWhatsapp />{banner.text}</Link></button>
+                <button><Link href={`https://api.whatsapp.com/send?phone=55${realEstate ? realEstate.phone?.replace(/[()\s-]/g, '') : broker ? broker.phone.replace(/[()\s-]/g, '') : ''}&text=${decodeURIComponent('Tenho interesse no imóvel: ' + imovel.title + '(' + imovel.sku + ')')}`} target="_blank"><IoLogoWhatsapp />{banner.text}</Link></button>
                 <div className="broker">
                   <div className="broker-cover" style={{
                     backgroundImage:`url('${realEstate ? realEstate.profile_photo : broker ? broker.profile_photo : ''}')`
