@@ -4,10 +4,11 @@ import styled from 'styled-components';
 
   interface HeaderProps {
     data?:any;
+    user?:any;
   }
   
   export function Header({
-    data,
+    data, user
   }: HeaderProps) {
     const [isMobile, setIsMobile] = useState(false);
     const [load, setLoad] = useState(true);
@@ -36,7 +37,8 @@ import styled from 'styled-components';
               href="/home"
               logoheight={data.logo_size}
               image={data.logo}
-            ></HeaderLogo>
+            >
+            </HeaderLogo>
             {data.menu_on === 'sim' &&
               (!isMobile ? <HeaderMenu
               textcolor={data.text_color}
@@ -176,7 +178,10 @@ import styled from 'styled-components';
     }
   `;
 
-  const HeaderLogo = styled.a<{image:string, logoheight:string}>`
+  const HeaderLogo = styled.a<{
+    image:string,
+    logoheight:string,
+  }>`
     background-image:url("${p => p.image}");
     background-size:contain;
     background-repeat:no-repeat;

@@ -80,7 +80,7 @@ export default function Home({ data }: any) {
         {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
         }
-         <Header data={data.data.personal_page_headers[0]}/>
+         <Header data={data.data.personal_page_headers[0]} user={data.data.broker_id ? data.data.broker : data.data.real_estate}/>
         {!load && data.data.personal_page_sections.sort((a:any, b:any) => a.position - b.position).filter((sections:any) => sections.page_location === 'home').map((page:any, index:number) => (
         <Banner
             key={index}
@@ -120,7 +120,7 @@ export default function Home({ data }: any) {
             }}></div>
         </Banner>
         ))}
-        <Footer data={data.data.personal_page_footers[0]}/>
+        <Footer data={data.data.personal_page_footers[0]} user={data.data.broker_id ? data.data.broker : data.data.real_estate}/>
         {data && 
             <BodyScriptInjector scriptContent={data.data.body_script} />
         }

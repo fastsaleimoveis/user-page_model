@@ -8,10 +8,11 @@ import Link from 'next/link';
 
   interface FooterProps {
     data?:any;
+    user?:any;
   }
   
   export function Footer({
-    data,
+    data, user
   }: FooterProps) {
     const [load, setLoad] = useState(true);
 
@@ -54,6 +55,7 @@ import Link from 'next/link';
                 texttransform={data.text_transform}
               >
                 <h3>Contato</h3>
+                <li><b>CRECI: </b>{user.creci ? user.creci : user.creci_j}</li>
                 <li><FaWhatsapp />{data.phone}</li>
                 <li><LuMapPin />{data.address1}</li>
                 <li className="address-2">{data.address2}</li>
