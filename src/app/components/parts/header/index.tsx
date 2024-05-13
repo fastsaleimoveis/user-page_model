@@ -4,11 +4,10 @@ import styled from 'styled-components';
 
   interface HeaderProps {
     data?:any;
-    user?:any;
   }
   
   export function Header({
-    data, user
+    data
   }: HeaderProps) {
     const [isMobile, setIsMobile] = useState(false);
     const [load, setLoad] = useState(true);

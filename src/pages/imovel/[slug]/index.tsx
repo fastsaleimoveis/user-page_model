@@ -94,7 +94,7 @@ export default function Imovel({ data, imovel }: any) {
                 }
             </div>
         ))}
-        <Footer data={data.data.personal_page_footers[0]}/>
+        <Footer data={data.data.personal_page_footers[0]} user={data.data.broker_id ? data.data.broker : data.data.real_estate}/>
         {data && 
             <BodyScriptInjector scriptContent={data.data.body_script} />
         }

@@ -25,7 +25,7 @@ export async function getServerSideProps(context: any) {
         const domain = `https://${req.headers.host}`;
 
         const body = {
-            // domain: 'https://ligiaimoveis.com.br',
+            // domain: 'https://dauglis.fastsaleimoveis.com.br',
             domain: domain,
         };
 
@@ -80,7 +80,7 @@ export default function Home({ data }: any) {
         {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
         }
-         <Header data={data.data.personal_page_headers[0]} user={data.data.broker_id ? data.data.broker : data.data.real_estate}/>
+         <Header data={data.data.personal_page_headers[0]}/>
         {!load && data.data.personal_page_sections.sort((a:any, b:any) => a.position - b.position).filter((sections:any) => sections.page_location === 'home').map((page:any, index:number) => (
         <Banner
             key={index}

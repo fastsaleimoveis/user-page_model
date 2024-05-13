@@ -123,7 +123,7 @@ export default function Imoveis({ data }: any) {
         </Banner>
         ))}
         <PropertiesCatalog pageId={data.data.page_id} data={data.data.personal_page_cards[0]}/>
-        <Footer data={data.data.personal_page_footers[0]}/>
+        <Footer data={data.data.personal_page_footers[0]} user={data.data.broker_id ? data.data.broker : data.data.real_estate}/>
         {data && 
             <BodyScriptInjector scriptContent={data.data.body_script} />
         }
