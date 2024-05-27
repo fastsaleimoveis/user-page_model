@@ -12,6 +12,23 @@ import { useRouter } from 'next/router';
     banner:any;
     user:any
   }
+
+  function isEqual(obj1:any, obj2:any) {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+  
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+  
+    for (let key of keys1) {
+      if (obj1[key] !== obj2[key]) {
+        return false;
+      }
+    }
+  
+    return true;
+  }
   
   export function SearchBar2({
     banner, user
@@ -19,14 +36,26 @@ import { useRouter } from 'next/router';
 
     const router = useRouter();
 
+    const getQueryParam = (param: string): string[] => {
+      const paramValue = router.query[param];
+
+      if (Array.isArray(paramValue)) {
+        return paramValue.filter(value => value.trim() !== '');
+      } else if (typeof paramValue === 'string') {
+        return paramValue.split(',').filter(value => value.trim() !== '');
+      } else {
+        return [];
+      }
+    };
+
     const [load, setLoad] = useState(true);
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState<any>(getQueryParam('categories')[0] || '')
     const [localList, setLocalList] = useState([])
-    const [local, setLocal] = useState('')
-    const [search, setSearch] = useState('')
-    const [rooms, setRooms] = useState(0)
-    const [garage, setGarage] = useState(0)
-    const [price, setPrice] = useState(0)
+    const [local, setLocal] = useState<any>(router.query.local && router.query.local !== '0' ? router.query.local : '')
+    const [search, setSearch] = useState<any>(router.query.search || '')
+    const [rooms, setRooms] = useState<any>(getQueryParam('dorms_number').map(Number)[0] || 0)
+    const [garage, setGarage] = useState<any>(getQueryParam('parking_spots').map(Number)[0] || 0)
+    const [price, setPrice] = useState<any>(Number(router.query.max_value) || 0)
 
     useEffect(() => {
       if(user.page_id){
@@ -37,20 +66,39 @@ import { useRouter } from 'next/router';
       }
     }, [user])
 
+    const updateURL = () => {
+      const queryParams = {
+        categories: category.length > 0 ? category : '',
+        dorms_number: rooms ? rooms : '',
+        parking_spots: garage ? garage : '',
+        local: local !== 'selecione' ? local : '',
+        max_value: price ? (price * 100).toString() : '',
+        search: search,
+      };
+  
+      const currentQuery = router.query;
+
+      if (!isEqual(currentQuery, queryParams)) {
+        router.push({
+          pathname: router.pathname,
+          query: queryParams,
+        });
+      }
+    };
+
     const handleSearch = () => {
       const queryParams = new URLSearchParams({
-        categories: [category].length > 0 ? [category].join(',') : '',
-        dorms_number: [rooms].length > 0 ? [rooms].join(',') : '',
-        parking_spots: [garage].length > 0 ? [garage].join(',') : '',
-        local: local !== 'selecione' ? local : '',
-        max_value: price ? (price).toString() : '',
         search: search,
+        local: local !== '' ? local : '',
+        categories:  category !== '' ? category : '',
+        dorms_number: rooms,
+        parking_spots: garage,
+        max_value: price ? (price).toString() : '',
       });
     
-      router.push({
-        pathname: '/imoveis',
-        query: queryParams.toString(),
-      });
+      setTimeout(() => {
+        window.open('/imoveis?' + queryParams.toString(), '_parent')
+      }, 0);
     };
 
     useEffect(() => {
@@ -80,6 +128,7 @@ import { useRouter } from 'next/router';
               <Input
                 style={{ opacity: 0, position: 'absolute', top: 0, left: 0 }}
                 type='select' onChange={(e) => setLocal(e.target.value)}>
+                <option value=''>Todas cidades</option>
                 {localList.map((local, index) => (
                   <option key={index} value={local}>{local}</option>
                 ))}
@@ -94,6 +143,7 @@ import { useRouter } from 'next/router';
                 <Input
                 style={{ opacity: 0, position: 'absolute', top: 0, left: 0 }}
                 type='select' onChange={(e) => setCategory(e.target.value)}>
+                  <option value=''>Todas categorias</option>
                   <option value='Apartamento'>Apartamento</option>
                   <option value='Casa'>Casa</option>
                   <option value='Comercial'>Comercial</option>
@@ -108,6 +158,7 @@ import { useRouter } from 'next/router';
             <Input
                 style={{ opacity: 0, position: 'absolute', top: 0, left: 0 }}
                 type='select' onChange={(e) => setGarage(parseInt(e.target.value))}>
+                  <option value=''>Vagas</option>
                   <option value={1}>1 vaga</option>
                   <option value={2}>2 vagas</option>
                   <option value={3}>3 vagas</option>
@@ -123,6 +174,7 @@ import { useRouter } from 'next/router';
             <Input
               style={{ opacity: 0, position: 'absolute', top: 0, left: 0 }}
               type='select' onChange={(e) => setRooms(parseInt(e.target.value))}>
+                <option value=''>Quartos</option>
                 <option value={1}>1 quarto</option>
                 <option value={2}>2 quartos</option>
                 <option value={3}>3 quartos</option>
@@ -139,6 +191,7 @@ import { useRouter } from 'next/router';
             <Input
               style={{ opacity: 0, position: 'absolute', top: 0, left: 0 }}
               type='select' onChange={(e) => setPrice(parseInt(e.target.value))}>
+                <option value=''>Valor</option>
                 <option value={100000000}>até R$ 1.000.000</option>
                 <option value={200000000}>até R$ 2.000.000</option>
                 <option value={300000000}>até R$ 3.000.000</option>
@@ -182,6 +235,8 @@ import { useRouter } from 'next/router';
     fontweight: string
   }>`
     overflow:hidden;
+    position:relative;
+    z-index:1;
 
     & h3{
         line-height:1;

@@ -11,6 +11,23 @@ import { useRouter } from 'next/router';
     banner:any;
     user:any;
   }
+
+  function isEqual(obj1:any, obj2:any) {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+  
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+  
+    for (let key of keys1) {
+      if (obj1[key] !== obj2[key]) {
+        return false;
+      }
+    }
+  
+    return true;
+  }
   
   export function SearchBar1({
     banner, user
@@ -18,11 +35,46 @@ import { useRouter } from 'next/router';
 
     const router = useRouter();
 
+    const getQueryParam = (param: string): string[] => {
+      const paramValue = router.query[param];
+
+      if (Array.isArray(paramValue)) {
+        return paramValue.filter(value => value.trim() !== '');
+      } else if (typeof paramValue === 'string') {
+        return paramValue.split(',').filter(value => value.trim() !== '');
+      } else {
+        return [];
+      }
+    };
+
     const [load, setLoad] = useState(true);
     const [localList, setLocalList] = useState([])
-    const [local, setLocal] = useState('')
-    const [category, setCategory] = useState('')
-    const [search, setSearch] = useState('')
+    const [local, setLocal] = useState<any>(router.query.local || '')
+    const [category, setCategory] = useState<any>(getQueryParam('categories')[0] || '')
+    const [search, setSearch] = useState<any>(router.query.search || '')
+
+    useEffect(() => {
+      getQueryParam('categories')[0]?.replaceAll('%2C', '')
+      updateURL();
+      /* eslint-disable */
+    }, [search, category, local]);
+
+    const updateURL = () => {
+      const queryParams = {
+        categories: category.length > 0 ? category : '',
+        local: local,
+        search: search,
+      };
+  
+      const currentQuery = router.query;
+
+      if (!isEqual(currentQuery, queryParams)) {
+        router.push({
+          pathname: router.pathname,
+          query: queryParams,
+        });
+      }
+    };
 
     useEffect(() => {
       if(user.page_id){
@@ -43,13 +95,12 @@ import { useRouter } from 'next/router';
       const queryParams = new URLSearchParams({
         search: search,
         local: local,
-        category: category,
+        categories: category !== 'selecione' ? category : '',
       });
-    
-      router.push({
-        pathname: '/imoveis',
-        query: queryParams.toString(),
-      });
+
+      setTimeout(() => {
+        window.open('/imoveis?' + queryParams.toString(), '_parent')
+      }, 0);
     };
 
     return (
@@ -67,15 +118,15 @@ import { useRouter } from 'next/router';
                   fontfamily={banner.title_font}
                 >
                   <SearchSelects>
-                    <Input type='select' onChange={(e) => setLocal(e.target.value)}>
-                      <option value='selecione'>Selecione a cidade</option>
+                    <Input type='select' value={local} onChange={(e) => setLocal(e.target.value)}>
+                      <option value=''>Cidades</option>
                       {localList.map((local, index) => (
                         <option key={index} value={local}>{local}</option>
                       ))}
                     </Input>
                     <span></span>
-                    <Input type='select' onChange={(e) => setCategory(e.target.value)}>
-                      <option value='selecione'>Selecione o tipo</option>
+                    <Input type='select' value={category} onChange={(e) => setCategory(e.target.value)}>
+                      <option value=''>Categorias</option>
                       <option value='Apartamento'>Apartamento</option>
                       <option value='Casa'>Casa</option>
                       <option value='Comercial'>Comercial</option>
@@ -145,6 +196,8 @@ import { useRouter } from 'next/router';
     fontweight:string
   }>`
     overflow:hidden;
+    position:relative;
+    z-index:1;
 
     & h3{
         line-height:1;

@@ -62,7 +62,7 @@ import { IoMdClose } from 'react-icons/io';
 
     const [search, setSearch] = useState(router.query.search || '')
     const [category, setCategory] = useState<string[]>(getQueryParam('categories'))
-    const [local, setLocal] = useState(router.query.local || 'selecione')
+    const [local, setLocal] = useState<any>(router.query.local || 'selecione')
     const [minPrice, setMinPrice] = useState(Number(router.query.min_value) / 100 || 0)
     const [maxPrice, setMaxPrice] = useState(Number(router.query.max_value) / 100 || 0)
     const [rooms, setRooms] = useState<number[]>(getQueryParam('dorms_number').map(Number))
@@ -122,6 +122,8 @@ import { IoMdClose } from 'react-icons/io';
      const handleProperties = () => {
 
       setLoading(true);
+
+      console.log(category)
 
       const filters = {
         categories: (Array.isArray(category) && category.length > 0 && category.some(c => c !== '' && c !== '0')) ? category : 0,
@@ -303,7 +305,7 @@ import { IoMdClose } from 'react-icons/io';
             >
               <LocalContainer>
                 <label>Cidade</label>
-                <Input type='select' onChange={(e) => setLocal(e.target.value)}>
+                <Input type='select' value={local} onChange={(e) => setLocal(e.target.value)}>
                   <option value='selecione'>Selecione a cidade</option>
                   {localList.map((local, index) => (
                     <option key={index} value={local}>{local}</option>
