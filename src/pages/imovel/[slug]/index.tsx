@@ -21,8 +21,8 @@ export async function getServerSideProps(context: any) {
         const domain = `https://${req.headers.host}`;
 
         const body = {
-            // domain: 'https://dauglis.fastsaleimoveis.com.br',
-            domain: domain,
+            domain: 'https://guilhermerodriguescorretor.fastsaleimoveis.com.br',
+            // domain: domain,
         };
 
         const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
@@ -78,6 +78,9 @@ export default function Imovel({ data, imovel }: any) {
                 <title>{imovel.title ? imovel.title : ''}</title>
                 <meta name="description" content={imovel.description ? imovel.description : ''} />
                 <meta property="og:title" content={imovel.title ? imovel.title : ''} />
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:image:type" content="image/jpg" />
+                <meta property="og:image:type" content="image/jpeg" />
                 <meta property="og:image" content={imovel.photos.length > 0 ? imovel.photos.sort((a:any, b:any) => a.order - b.order)[0].url : ''} />
                 <meta property="og:description" content={imovel.description ? imovel.description : ''} />
                 <link rel="icon" href="/favicon.ico" />
