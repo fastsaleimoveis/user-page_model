@@ -81,7 +81,7 @@ export default function Imovel({ data, imovel }: any) {
                 <meta property="og:image:type" content="image/png" />
                 <meta property="og:image:type" content="image/jpg" />
                 <meta property="og:image:type" content="image/jpeg" />
-                <meta property="og:image" content={imovel.photos.length > 0 ? imovel.photos.sort((a:any, b:any) => a.order - b.order)[0].url : ''} />
+                <meta property="og:image" content={imovel.photos.length > 0 ? imovel.photos.sort((a:any, b:any) => a.order - b.order)[0].url.replace('upload', 'upload/ar_1.0,c_fit,h_800') : ''} />
                 <meta property="og:description" content={imovel.description ? imovel.description : ''} />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
