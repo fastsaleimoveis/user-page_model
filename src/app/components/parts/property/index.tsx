@@ -111,7 +111,13 @@ import { MdOutlineContentCopy } from 'react-icons/md';
             {imovel.photos.sort((a:any, b: any) => parseInt(a.order) - parseInt(b.order)).map((photo:any, index:number) => (
               <SwiperSlide key={index}>
                 <Fancybox options={{ infinite: false }} delegate="[data-fancybox='gallery']">
-                  <CarouselImage data-fancybox="gallery" src={photo.url}></CarouselImage>
+                  {photo.url.endsWith('.heic') ? (
+                    // Se o URL termina com .heic, renderiza a imagem convertida para JPG
+                    <CarouselImage data-fancybox="gallery" src={photo.url.replace('.heic', '.jpg')}></CarouselImage>
+                  ) : (
+                    // Caso contrário, renderiza a imagem normalmente
+                    <CarouselImage data-fancybox="gallery" src={photo.url}></CarouselImage>
+                  )}
                 </Fancybox>
               </SwiperSlide>
             ))}
