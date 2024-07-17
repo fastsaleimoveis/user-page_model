@@ -19,6 +19,8 @@ import Link from 'next/link';
       }
     }, [data])
 
+    console.log(data)
+
     return (
       !load ?
         <WhatsButton
@@ -26,7 +28,7 @@ import Link from 'next/link';
           color={data.data_2}
           size={data.data_3}
         >
-            <Link href={`https://wa.me/${data.text_3 ? data.text_3 : ''}`} target="_blank"><FaWhatsapp /></Link>
+            <Link href={`https://wa.me/${data.text_3 ? data.text_3 : ''}?text=${data.text_2 ? data.text_2 : ''}`} target="_blank"><FaWhatsapp /></Link>
         </WhatsButton>
       :
         <></>
