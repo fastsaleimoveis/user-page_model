@@ -123,8 +123,6 @@ import { IoMdClose } from 'react-icons/io';
 
       setLoading(true);
 
-      console.log(category)
-
       const filters = {
         categories: (Array.isArray(category) && category.length > 0 && category.some(c => c !== '' && c !== '0')) ? category : 0,
         dorms_number: rooms.length > 0 && !rooms.includes(0) ? rooms : 0,
@@ -206,6 +204,18 @@ import { IoMdClose } from 'react-icons/io';
       });
     };
 
+    useEffect(() => {
+      if (openFilter) {
+        document.documentElement.style.overflow = 'hidden';
+      } else {
+        document.documentElement.style.overflow = 'auto';
+      }
+  
+      return () => {
+        document.documentElement.style.overflow = 'auto';
+      };
+    }, [openFilter]);
+
     return (
       
       !load ?
@@ -213,9 +223,10 @@ import { IoMdClose } from 'react-icons/io';
         display:'block',
       }}>
      <CatalogResult className="Filters">
-        <FiltersContainer className={openFilter ? 'open' : ''}>
+      <FiltersContainer className={openFilter ? 'open' : ''}>
         <FilterToogle onClick={() => setOpenFilter(true)}><CiFilter /></FilterToogle>
         <FilterClose onClick={() => setOpenFilter(false)}><IoMdClose /></FilterClose>
+        <FilterBoy>
         <Title>Filtros</Title>
         <SearchBar>
           <label>Busque por nome, código ou empreendimento</label>
@@ -384,10 +395,11 @@ import { IoMdClose } from 'react-icons/io';
         }}
           className="apply-filters"
         >Aplicar filtros</Button> */}
-        <span className="clearFilter" onClick={clearFilter}>Limpar filtros</span>
-        <ButtonClose>
-          <Button onClick={() => setOpenFilter(false)}>APLICAR</Button>
+          <span className="clearFilter" onClick={clearFilter}>Limpar filtros</span>
+          <ButtonClose>
+            <Button onClick={() => setOpenFilter(false)}>APLICAR</Button>
           </ButtonClose>
+        </FilterBoy>
         </FiltersContainer>
         <Catalog>
           {loading ?
@@ -603,18 +615,27 @@ const FiltersContainer = styled.div`
     width:100%;
     right:0;
     left:0;
-    height:85vh;
+    height:100vh;
     box-shadow:0 0 5px rgba(0,0,0,0.3);
     bottom:0;
     transform:translate(-105%, 0);
     transition:0.2s;
     padding-top:40px;
+    border-radius:0px;
 
     &.open{
       transform:translate(0, 0);
     }
   }
 `;
+
+const FilterBoy = styled.div`
+  width:100%;
+  height:100%;
+  overflow-y:auto;
+  overflow-x: hidden;
+  padding-bottom:40px;
+`
 
 const FilterToogle = styled.div`
   position:fixed;
@@ -624,10 +645,11 @@ const FilterToogle = styled.div`
   border-radius:0 5px 5px 0;
   background-color:#fff;
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
-  right: -80px;
+  right: -78px;
   display:flex;
   align-items:center;
   justify-content:center;
+  top:74px;
 
   & svg{
     width:34px;
@@ -646,7 +668,8 @@ const FilterClose = styled.div`
   float:right;
   display:flex;
   align-items:center;
-  margin-top:-30px;
+  margin-top:-40px;
+  margin-right: -10px;
   justify-content:center;
 
   & svg{
