@@ -620,7 +620,7 @@ const FiltersContainer = styled.div`
     bottom:0;
     transform:translate(-105%, 0);
     transition:0.2s;
-    padding-top:40px;
+    padding-top:74px;
     border-radius:0px;
 
     &.open{
