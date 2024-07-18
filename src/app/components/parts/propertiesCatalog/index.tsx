@@ -620,7 +620,7 @@ const FiltersContainer = styled.div`
     bottom:0;
     transform:translate(-105%, 0);
     transition:0.2s;
-    padding-top:74px;
+    padding-top:140px;
     border-radius:0px;
 
     &.open{
@@ -649,7 +649,7 @@ const FilterToogle = styled.div`
   display:flex;
   align-items:center;
   justify-content:center;
-  top:74px;
+  top:140px;
 
   & svg{
     width:34px;
