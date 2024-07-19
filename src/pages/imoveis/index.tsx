@@ -27,7 +27,7 @@ export async function getServerSideProps(context: any) {
         const domain = `https://${req.headers.host}`;
 
         const body = {
-            // domain: 'https://pavanimoveis.com.br',
+            // domain: 'https://dauglis5.fastsaleimoveis.com.br',
             domain: domain,
         };
 

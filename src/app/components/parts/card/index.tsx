@@ -21,6 +21,10 @@ import { useEffect, useState } from 'react';
       }
     }, [data])
 
+    const imageWithMinOrder = imovel?.photos?.reduce((min:any, photo:any) => 
+      photo.order < min.order ? photo : min, imovel?.photos[0]
+    )?.url;
+
     return (
       !load ?
       <Card className="card" onClick={() => {
@@ -28,7 +32,7 @@ import { useEffect, useState } from 'react';
           window.open('/imovel/' + imovel.slug, '_parent')
         }, 0);
       }}>
-        <ImageC style={{backgroundImage:`url('${imovel?.photos?.filter((photos : any) => photos.order === 0)[0]?.url}')`}}></ImageC>
+        <ImageC style={{backgroundImage:`url('${imageWithMinOrder}')`}}></ImageC>
         <InfoContainer bgcolor={data?.background_color}>
           <Title
             textcolor={data?.text_color}
