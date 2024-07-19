@@ -318,7 +318,7 @@ import { IoMdClose } from 'react-icons/io';
                 <label>Cidade</label>
                 <Input type='select' value={local} onChange={(e) => setLocal(e.target.value)}>
                   <option value='selecione'>Selecione a cidade</option>
-                  {localList.map((local, index) => (
+                  {localList.sort().map((local, index) => (
                     <option key={index} value={local}>{local}</option>
                   ))}
                 </Input>
@@ -496,13 +496,19 @@ const CategoryContainer = styled.div`
     width:100%;
     height:80px;
     font-size:12px;
-
-    &.active{
-      background-color:#888;
-    }
+    color:#333;
 
     & p{
       margin:0;
+      color:#333;
+    }
+
+    &.active{
+      background-color:#888;
+
+      & p{
+        color:#fff;
+      }
     }
 
     & .icon{
