@@ -129,9 +129,12 @@ import { useRouter } from 'next/router';
                 style={{ opacity: 0, position: 'absolute', top: 0, left: 0 }}
                 type='select' onChange={(e) => setLocal(e.target.value)}>
                 <option value=''>Todas cidades</option>
-                {localList.map((local, index) => (
-                  <option key={index} value={local}>{local}</option>
-                ))}
+                {localList
+                  .filter((city:any) => city && city !== 'null' && city !== '')
+                  .sort((a: string, b: string) => a.localeCompare(b))
+                  .map((local, index) => (
+                    <option key={index} value={local}>{local}</option>
+                  ))}
               </Input>
             </FilterItem>
             <FilterItem
