@@ -80,7 +80,7 @@ import { useRouter } from 'next/router';
       if(user.page_id){
         axios.get('https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties-cities/' + user.page_id)
         .then(response => {
-           setLocalList(response.data.cities.filter((city:any) => city && city !== 'null' && city !== ''))
+           setLocalList(response.data.cities)
         })
       }
     }, [user])
@@ -120,7 +120,10 @@ import { useRouter } from 'next/router';
                   <SearchSelects>
                     <Input type='select' value={local} onChange={(e) => setLocal(e.target.value)}>
                       <option value=''>Cidades</option>
-                      {localList.map((local, index) => (
+                      {localList
+                      .filter((city:any) => city && city !== 'null' && city !== '')
+                      .sort((a: string, b: string) => a.localeCompare(b))
+                      .map((local, index) => (
                         <option key={index} value={local}>{local}</option>
                       ))}
                     </Input>
