@@ -80,7 +80,7 @@ import { useRouter } from 'next/router';
       if(user.page_id){
         axios.get('https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties-cities/' + user.page_id)
         .then(response => {
-           setLocalList(response.data.cities)
+           setLocalList(response.data.cities.filter((city:any) => city && city !== 'null' && city !== ''))
         })
       }
     }, [user])
