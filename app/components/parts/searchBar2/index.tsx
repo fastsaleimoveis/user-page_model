@@ -6,7 +6,6 @@ import { MdCurrencyExchange } from 'react-icons/md';
 import { useEffect, useRef, useState } from 'react';
 import { Input } from 'reactstrap';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 
   interface SearchBar2Props {
     banner:any;
@@ -29,33 +28,28 @@ import { useRouter } from 'next/router';
   
     return true;
   }
+
   
   export function SearchBar2({
     banner, user
   }: SearchBar2Props) {
 
-    const router = useRouter();
-
-    const getQueryParam = (param: string): string[] => {
-      const paramValue = router.query[param];
-
-      if (Array.isArray(paramValue)) {
-        return paramValue.filter(value => value.trim() !== '');
-      } else if (typeof paramValue === 'string') {
-        return paramValue.split(',').filter(value => value.trim() !== '');
-      } else {
-        return [];
-      }
-    };
+    function getQueryParam(param: string): string[] {
+      if (typeof window === 'undefined') return [];
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramValue = urlParams.get(param);
+      
+      return paramValue ? paramValue.split(',').filter(value => value.trim() !== '') : [];
+    }
 
     const [load, setLoad] = useState(true);
-    const [category, setCategory] = useState<any>(getQueryParam('categories')[0] || '')
-    const [localList, setLocalList] = useState([])
-    const [local, setLocal] = useState<any>(router.query.local && router.query.local !== '0' ? router.query.local : '')
-    const [search, setSearch] = useState<any>(router.query.search || '')
-    const [rooms, setRooms] = useState<any>(getQueryParam('dorms_number').map(Number)[0] || 0)
-    const [garage, setGarage] = useState<any>(getQueryParam('parking_spots').map(Number)[0] || 0)
-    const [price, setPrice] = useState<any>(Number(router.query.max_value) || 0)
+    const [category, setCategory] = useState<string>(getQueryParam('categories')[0] || '');
+    const [localList, setLocalList] = useState([]);
+    const [local, setLocal] = useState<string>(getQueryParam('local')[0] || '');
+    const [search, setSearch] = useState<string>(getQueryParam('search')[0] || '');
+    const [rooms, setRooms] = useState<number>(parseInt(getQueryParam('dorms_number')[0]) || 0);
+    const [garage, setGarage] = useState<number>(parseInt(getQueryParam('parking_spots')[0]) || 0);
+    const [price, setPrice] = useState<number>(parseInt(getQueryParam('max_value')[0]) || 0);
 
     useEffect(() => {
       if(user.page_id){
@@ -66,40 +60,37 @@ import { useRouter } from 'next/router';
       }
     }, [user])
 
-    const updateURL = () => {
-      const queryParams = {
-        categories: category.length > 0 ? category : '',
-        dorms_number: rooms ? rooms : '',
-        parking_spots: garage ? garage : '',
+    function updateURL() {
+      const queryParams = new URLSearchParams({
+        categories: category,
+        dorms_number: rooms ? rooms.toString() : '',
+        parking_spots: garage ? garage.toString() : '',
         local: local !== 'selecione' ? local : '',
-        max_value: price ? (price * 100).toString() : '',
+        max_value: price ? (price).toString() : '',
         search: search,
-      };
+      });
   
-      const currentQuery = router.query;
-
-      if (!isEqual(currentQuery, queryParams)) {
-        router.push({
-          pathname: router.pathname,
-          query: queryParams,
-        });
+      const currentQuery = new URLSearchParams(window.location.search);
+      if (!isEqual(Object.fromEntries(currentQuery), Object.fromEntries(queryParams))) {
+        const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
       }
-    };
+    }
 
-    const handleSearch = () => {
+    function handleSearch() {
       const queryParams = new URLSearchParams({
         search: search,
         local: local !== '' ? local : '',
-        categories:  category !== '' ? category : '',
-        dorms_number: rooms,
-        parking_spots: garage,
-        max_value: price ? (price).toString() : '',
+        categories: category !== '' ? category : '',
+        dorms_number: rooms ? rooms.toString() : '',
+        parking_spots: garage ? garage.toString() : '',
+        max_value: price ? price.toString() : '',
       });
-    
+  
       setTimeout(() => {
-        window.open('/imoveis?' + queryParams.toString(), '_parent')
+        window.open('/imoveis?' + queryParams.toString(), '_parent');
       }, 0);
-    };
+    }
 
     useEffect(() => {
       if(banner){
