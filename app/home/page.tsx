@@ -3,10 +3,9 @@ import '@/app/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { redirect } from 'next/navigation';
 
-export async function generateMetadata(context:any) {
-    try {
-      const { req } = context;
-      const domain = `https://${req.headers.host}`;
+export async function generateMetadata({ req }: any) {
+  try {
+    const domain = `https://${req.headers.host}`;
       // const domain = `https://pavanimoveis.com.br`;
   
       const body = {

@@ -3,9 +3,8 @@ import '@/app/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AboutComp from '../components/sobre';
 
-export async function generateMetadata(context:any) {
+export async function generateMetadata({ req }: any) {
     try {
-      const { req } = context;
       const domain = `https://${req.headers.host}`;
       // const domain = `https://pavanimoveis.com.br`;
   

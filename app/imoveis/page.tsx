@@ -4,9 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ImoveisComp from '../components/imoveis';
 
 
-export async function generateMetadata(context:any) {
+export async function generateMetadata({ req }: any) {
     try {
-      const { req } = context;
       const domain = `https://${req.headers.host}`;
       // const domain = `https://pavanimoveis.com.br`;
   
