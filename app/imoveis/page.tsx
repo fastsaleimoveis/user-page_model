@@ -4,9 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ImoveisComp from '../components/imoveis';
 
 
-export async function generateMetadata({ req }: any) {
+export async function generateMetadata(context:any) {
+    const accessedUrl = context.req.url;
     try {
-      const domain = `https://${req.headers.host}`;
+      const domain = accessedUrl;
       // const domain = `https://pavanimoveis.com.br`;
   
       const body = {

@@ -1,9 +1,10 @@
 import { redirect } from "next/navigation";
 import HomeComp from "./components/home";
 
-export async function generateMetadata({ req }: any) {
+export async function generateMetadata(context:any) {
+  const accessedUrl = context.req.url;
   try {
-    const domain = `https://${req.headers.host}`;
+    const domain = accessedUrl;
     // const domain = `https://pavanimoveis.com.br`;
 
     const body = {
