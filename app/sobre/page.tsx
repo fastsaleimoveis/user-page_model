@@ -2,11 +2,12 @@ import React from 'react';
 import '@/app/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AboutComp from '../components/sobre';
+import { headers } from 'next/headers';
 
 export async function generateMetadata(context:any) {
-    const accessedUrl = context.req.url;
+    const host = headers().get('host');
     try {
-      const domain = accessedUrl;
+      const domain = host || '';
       // const domain = `https://pavanimoveis.com.br`;
   
       const body = {

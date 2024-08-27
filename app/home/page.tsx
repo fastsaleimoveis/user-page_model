@@ -2,12 +2,13 @@ import React from 'react';
 import '@/app/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 
 export async function generateMetadata(context:any) {
-  const accessedUrl = context.req.url;
+  const host = headers().get('host');
   try {
-    const domain = accessedUrl;
-      // const domain = `https://pavanimoveis.com.br`;
+    const domain = host || '';
+    // const domain = `https://pavanimoveis.com.br`;
   
       const body = {
           domain: domain.replace('www.', ''),

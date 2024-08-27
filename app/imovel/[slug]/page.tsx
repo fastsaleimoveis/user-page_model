@@ -2,14 +2,15 @@ import React from 'react';
 import '@/app/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ImovelComp from '@/app/components/imovel';
+import { headers } from 'next/headers';
 
 
 export async function generateMetadata(context:any) {
     const slug = context?.params.slug;
 
+    const host = headers().get('host');
     try {
-      const { req } = context;
-      const domain = `https://${req.headers.host}`;
+      const domain = host || '';
       // const domain = `https://pavanimoveis.com.br`;
   
       const body = {
