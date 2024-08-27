@@ -4,10 +4,14 @@ import { redirect } from 'next/navigation';
 export default async function Page() {
     try {
         // Recolha o domínio de forma semelhante
-        const response = await fetch('/api/get-url');
-        const data = await response.json();
+        const res = await fetch('http://localhost:3000/api/get-url', {
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
 
-        const domain = new URL(data.url).origin;
+        const data = await res.json();
+        const domain = data.domain || 'http://localhost:3000';
 
         const body = {
             domain: domain.replace('www.', ''),
