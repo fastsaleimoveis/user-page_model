@@ -10,7 +10,7 @@ export async function generateMetadata(context:any) {
 
     const host = headers().get('host');
     try {
-      const domain = host || '';
+      const domain = `https://${host}` || '';
       // const domain = `https://pavanimoveis.com.br`;
   
       const body = {
