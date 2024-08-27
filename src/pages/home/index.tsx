@@ -26,7 +26,7 @@ export async function getServerSideProps(context: any) {
 
         const body = {
             // domain: 'https://pavanimoveis.com.br',
-            domain: domain,
+            domain: domain.replace('www.', ''),
         };
 
         const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
