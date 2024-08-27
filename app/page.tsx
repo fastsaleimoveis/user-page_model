@@ -8,6 +8,8 @@ export async function generateMetadata(context:any) {
     const domain = host || '';
     // const domain = `https://pavanimoveis.com.br`;
 
+    console.log(host)
+
     const body = {
         domain: domain.replace('www.', ''),
     };
