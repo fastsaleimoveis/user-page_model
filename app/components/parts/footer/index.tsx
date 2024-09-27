@@ -103,7 +103,7 @@ const FooterLogo = styled.div<{
   background-position:center center;
   background-repeat:no-repeat;
   background-size:contain;
-  width:${p => p.size ? Number(p.size) * 10 : 200}px;
+  width:${p => p.size ? Number(p.size) * 5 : 200}px;
   height:${p => p.size ? Number(p.size) * 5 : 100}px;
   max-width:100%;
 `;
