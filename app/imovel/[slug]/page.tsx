@@ -50,6 +50,9 @@ export async function generateMetadata(context:any) {
         twitter: {
           image: imovel.photos.length > 0 ? imovel.photos.sort((a:any, b:any) => a.order - b.order)[0].url.replace('upload', 'upload/ar_1.0,c_fit,h_800') : ''
         },
+        icons: {
+          icon: data?.data?.favicon ?? '/default-favicon.ico',
+        },
         data,
         imovel
       }

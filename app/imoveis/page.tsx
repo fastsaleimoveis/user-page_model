@@ -38,6 +38,9 @@ export async function generateMetadata(context:any) {
         twitter: {
           image: data?.data?.seo_image ?? ''
         },
+        icons: {
+          icon: data?.data?.favicon ?? '/default-favicon.ico',
+        },
         data
       }
   

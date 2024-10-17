@@ -6,9 +6,7 @@ export async function generateMetadata(context:any) {
   const host = headers().get('host');
   try {
     const domain = `https://${host}` || '';
-    // const domain = `https://ligiaimoveis.com.br`;
-
-    console.log(host)
+    // const domain = `https://dauglis6.fastsaleimoveis.com.br`;
 
     const body = {
         domain: domain.replace('www.', ''),
@@ -24,6 +22,8 @@ export async function generateMetadata(context:any) {
 
     const data = await response.json();
 
+    console.log(data)
+
     return {
       title: data?.data?.seo_title ?? '',
       description: data?.data?.seo_description ?? '',
@@ -36,6 +36,9 @@ export async function generateMetadata(context:any) {
       },
       twitter: {
         image: data?.data?.seo_image ?? ''
+      },
+      icons: {
+        icon: data?.data?.favicon ?? '/default-favicon.ico',
       },
       data
     }
