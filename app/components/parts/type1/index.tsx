@@ -52,5 +52,7 @@ import { useEffect, useState } from 'react';
         font-style:${p => p.fontstyle ? p.fontstyle : 'none'};
         text-decoration:${p => p.textdecoration ? p.textdecoration : 'none'};
         font-weight:${p => p.fontweight ? p.fontweight : 500};
+        position: relative;
+        z-index: 999; 
     }
   `;
