@@ -60,7 +60,7 @@ import Link from 'next/link';
                 <li><LuMapPin />{data.address1}</li>
                 <li className="address-2">{data.address2}</li>
                 <div className="social-links">
-                  {(data.instagram && data.instagram !== '') && <Link href={'https://instagram.com/' + data.instagram} target="_blank"><FaInstagram /></Link>}
+                  {(data.instagram && data.instagram !== '') && <Link href={'https://instagram.com/' + data.instagram?.replace('@', '')} target="_blank"><FaInstagram /></Link>}
                   {(data.youtube && data.youtube !== '') && <Link href={data.youtube} target="_blank"><RiYoutubeLine /></Link>}
                   {(data.facebook && data.facebook !== '') && <Link href={data.facebook} target="_blank"><AiOutlineFacebook /></Link>}
                 </div>
