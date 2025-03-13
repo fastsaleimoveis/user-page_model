@@ -6,7 +6,7 @@ export async function generateMetadata(context:any) {
   const host = headers().get('host');
   try {
     const domain = `https://${host}` || '';
-    // const domain = `https://pavanimoveis.com.br`;
+    // const domain = `https://ligiaimoveis.com.br`;
 
     const body = {
         domain: domain.replace('www.', ''),
@@ -22,7 +22,7 @@ export async function generateMetadata(context:any) {
 
     const data = await response.json();
 
-    console.log(data)
+    // console.log(data)
 
     return {
       title: data?.data?.seo_title ?? '',

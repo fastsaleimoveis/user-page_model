@@ -32,9 +32,9 @@ export default function HomeComp({ data }: any) {
 
     return (
       <main>
-        {data && 
+        {/* {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
-        }
+        } */}
          <Header data={data.data.personal_page_headers[0]}/>
         {!load && data.data.personal_page_sections.sort((a:any, b:any) => a.position - b.position).filter((sections:any) => sections.page_location === 'home').map((page:any, index:number) => (
         <Banner
