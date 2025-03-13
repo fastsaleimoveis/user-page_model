@@ -33,27 +33,26 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        {/* Exemplo: injeção manual do script do Google Tag */}
-        {gtagId && (
-          <>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
-            />
-            <script
-              // Precisamos do dangerouslySetInnerHTML
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${gtagId}');
-                `,
-              }}
-            />
-          </>
-        )}
-        {/* Fim da injeção manual */}
+        <script
+          async
+          src={
+            gtagId
+              ? `https://www.googletagmanager.com/gtag/js?id=${gtagId}`
+              : ""
+          }
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: gtagId
+              ? `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gtagId}');
+              `
+              : "",
+          }}
+        />
       </head>
       <body className={inter.className}>
         {children}
