@@ -32,9 +32,9 @@ export default function AboutComp({ data }: any) {
 
     return (
       <main>
-        {data && 
+        {/* {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
-        }
+        } */}
          <Header data={data.data.personal_page_headers[0]}/>
          {!load && data.data.personal_page_sections.sort((a:any, b:any) => a.position - b.position).filter((sections:any) => sections.page_location === 'sobre').map((page:any, index:number) => (
         <Banner
@@ -76,9 +76,9 @@ export default function AboutComp({ data }: any) {
         </Banner>
         ))}
         <Footer data={data.data.personal_page_footers[0]} user={data.data.broker_id ? data.data.broker : data.data.real_estate}/>
-        {data && 
+        {/* {data && 
             <BodyScriptInjector scriptContent={data.data.body_script} />
-        }
+        } */}
 
         {data.data.personal_page_assets.map((asset:any, index:number) => (
           <div key={index}>

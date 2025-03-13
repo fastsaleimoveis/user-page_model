@@ -23,9 +23,9 @@ export default function ImovelComp({ data, imovel }: any) {
 
     return (
       <main style={{boxSizing: 'initial'}}>
-        {data && 
+        {/* {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
-        }
+        } */}
          <Header data={data.data.personal_page_headers[0]}/>
         {!load && data.data.personal_page_sections.filter((sections:any) => sections.page_location === 'imovel').map((page:any, index:number) => (
             <div key={index} style={{width:'100%', padding:'0', position:'relative', zIndex:'1'}}>
@@ -35,9 +35,9 @@ export default function ImovelComp({ data, imovel }: any) {
             </div>
         ))}
         <Footer data={data.data.personal_page_footers[0]} user={data.data.broker_id ? data.data.broker : data.data.real_estate}/>
-        {data && 
+        {/* {data && 
             <BodyScriptInjector scriptContent={data.data.body_script} />
-        }
+        } */}
 
         {data.data.personal_page_assets.map((asset:any, index:number) => (
           <div key={index}>
