@@ -6,7 +6,6 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 async function getPageData(domain: string) {
-  // Aqui é seu fetch normal
   const body = { domain: domain.replace("www.", "") };
   const response = await fetch("https://dev.fastsaleimoveis.com.br/api/user-pages/", {
     method: "POST",
@@ -28,22 +27,18 @@ export default async function RootLayout({
 
   const pageData = await getPageData(domain);
 
-  // Exemplo: Se o back-end retorna algo do tipo `pageData.data.gtag === "AW-16561351330"`.
   const gtagId = pageData?.data?.gtag ?? "";
 
   return (
     <html lang="pt-BR">
       <head>
-        {/* Se temos um gtagId, injetamos o Script do Google Analytics. */}
         {gtagId && (
           <>
-            {/* 1) O Script "async" de carregamento */}
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
               async
               strategy="beforeInteractive"
             />
-            {/* 2) O Script inline de configuração */}
             <Script id="inline-gtag" strategy="beforeInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
