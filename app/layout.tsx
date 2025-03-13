@@ -23,7 +23,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const host = headers().get("host") || "";
-  const domain = `https://${host}`;
+    const domain = `https://${host}` || '';
+    // const domain = `https://ligiaimoveis.com.br`;
 
   const pageData = await getPageData(domain);
 
