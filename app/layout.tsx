@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { headers } from "next/headers";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,12 +35,30 @@ export default async function RootLayout({
 
 
   const pageData = await getPageData(domain);
+  const header_script = pageData?.data?.header_script ?? "";
 
-  const headerScript = pageData?.data?.header_script ?? "";
+  const scriptSrcMatch = header_script.match(/<script.*?src="([^"]+)"[^>]*><\/script>/);
+  const inlineMatch   = header_script.match(/<script[^>]*>([\s\S]*?)<\/script>/);
+
+  const scriptSrc = scriptSrcMatch?.[1] ?? "";
+  const inlineCode = inlineMatch?.[1] ?? "";
 
   return (
     <html lang="pt-BR">
-      <head dangerouslySetInnerHTML={{ __html: headerScript }} />
+      <head>
+        {scriptSrc && (
+          <Script
+            src={scriptSrc}
+            async
+            strategy="beforeInteractive"
+          />
+        )}
+        {inlineCode && (
+          <Script id="inline-script" strategy="beforeInteractive">
+            {inlineCode}
+          </Script>
+        )}
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );
