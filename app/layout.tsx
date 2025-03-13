@@ -5,6 +5,9 @@ import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
+/** 
+ * Busca os dados do backend para montar o "header_script" 
+ */
 async function getPageData(domain: string) {
   const body = { domain: domain.replace("www.", "") };
 
@@ -17,7 +20,9 @@ async function getPageData(domain: string) {
     }
   );
 
-  if (!response.ok) throw new Error("Falha ao buscar dados do backend");
+  if (!response.ok) {
+    throw new Error("Falha ao buscar dados do backend");
+  }
 
   const data = await response.json();
   return data;
@@ -25,27 +30,37 @@ async function getPageData(domain: string) {
 
 export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-
+}) {
+  // Obter o domínio a partir do "host" do headers
   const host = headers().get("host") || "";
   const domain = `https://${host}`;
-  // const domain = `https://ligiaimoveis.com.br`;
 
-
+  // Buscar dados no backend
   const pageData = await getPageData(domain);
-  const header_script = pageData?.data?.header_script ?? "";
 
-  const scriptSrcMatch = header_script.match(/<script.*?src="([^"]+)"[^>]*><\/script>/);
-  const inlineMatch   = header_script.match(/<script[^>]*>([\s\S]*?)<\/script>/);
+  // Extrair o script do header
+  const headerScript: string = pageData?.data?.header_script ?? "";
 
+  // Regex para capturar 1) <script src="..."></script> e 2) <script> inline </script>
+  const scriptSrcMatch = headerScript.match(
+    /<script.*?src="([^"]+)"[^>]*><\/script>/i
+  );
+  const inlineMatch = headerScript.match(
+    /<script[^>]*>([\s\S]*?)<\/script>/i
+  );
+
+  // Se houver <script src="...">
   const scriptSrc = scriptSrcMatch?.[1] ?? "";
+
+  // Se houver <script> ... </script> inline
   const inlineCode = inlineMatch?.[1] ?? "";
 
   return (
     <html lang="pt-BR">
       <head>
+        {/* Se encontramos um script com src */}
         {scriptSrc && (
           <Script
             src={scriptSrc}
@@ -53,6 +68,8 @@ export default async function RootLayout({
             strategy="beforeInteractive"
           />
         )}
+
+        {/* Se encontramos um script inline */}
         {inlineCode && (
           <Script id="inline-script" strategy="beforeInteractive">
             {inlineCode}
