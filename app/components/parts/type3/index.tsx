@@ -16,6 +16,7 @@ export function Type3({ banner, data }: Type3Props) {
   const slideCount = banner.properties.length;
   const isMobile = useMediaQuery('(max-width: 768px)');
   const controlsEnabled = slideCount > (isMobile ? 1 : 3);
+  const enableCarousel = slideCount > minSlides;
 
   if (!banner) return null;
 
@@ -32,36 +33,43 @@ export function Type3({ banner, data }: Type3Props) {
         {banner.title}
       </Title>
 
-      <Carousel
-         withIndicators={controlsEnabled}
-         withControls={controlsEnabled}
-        height="auto"
-        slideSize={isMobile ? '100%' : '33.3333%'}
-        slideGap="md"
-        align="start"
-        slidesToScroll={1}
-        styles={{
-          indicator: {
-            backgroundColor: banner.button_background_color || '#333',
-            width: 8,
-            height: 8,
-            transition: '0.3s',
-            '&[data-active]': {
-              backgroundColor: banner.title_color || '#000',
+      {enableCarousel ? (
+        <Carousel
+          withIndicators
+          withControls
+          height="auto"
+          slideSize={isMobile ? '100%' : '33.3333%'}
+          slideGap="md"
+          align="start"
+          slidesToScroll={1}
+          styles={{
+            indicator: {
+              backgroundColor: banner.button_background_color || '#333',
+              width: 8,
+              height: 8,
+              transition: '0.3s',
+              '&[data-active]': {
+                backgroundColor: banner.title_color || '#000',
+              },
             },
-          },
-          control: {
-            color: banner.button_background_color || '#333',
-          },
-        }}
-      >
-        {banner.properties.length > 0 &&
-          banner.properties.map((imovel: any, index: number) => (
+            control: {
+              color: banner.button_background_color || '#333',
+            },
+          }}
+        >
+          {banner.properties.map((imovel: any, index: number) => (
             <Carousel.Slide key={index}>
               <ImovelCard imovel={imovel} data={data} />
             </Carousel.Slide>
           ))}
-      </Carousel>
+        </Carousel>
+      ) : (
+        <SingleCardWrapper>
+          {banner.properties.map((imovel: any, index: number) => (
+            <ImovelCard key={index} imovel={imovel} data={data} />
+          ))}
+        </SingleCardWrapper>
+      )}
 
       <ButtonContainer>
         <Button
@@ -79,6 +87,13 @@ export function Type3({ banner, data }: Type3Props) {
     </BannerContainer>
   );
 }
+
+const SingleCardWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+`;
 
   const Title = styled.h2<{
     fontsize: string,
