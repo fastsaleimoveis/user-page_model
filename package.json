@@ -12,10 +12,14 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fancyapps/ui": "^5.0.33",
+    "@mantine/carousel": "^7.17.3",
+    "@mantine/core": "^7.17.3",
+    "@mantine/hooks": "^7.17.3",
     "@mui/material": "^5.15.6",
     "@mui/styled-engine-sc": "^6.0.0-alpha.13",
     "axios": "^1.6.6",
     "bootstrap": "^5.3.2",
+    "embla-carousel-react": "^7.1.0",
     "next": "^14.1.0",
     "qs": "^6.11.2",
     "react": "^18.2.0",
@@ -27,11 +31,11 @@
     "swiper": "^11.0.5"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.6"
+    "eslint-config-next": "14.2.6",
+    "typescript": "^5"
   }
 }

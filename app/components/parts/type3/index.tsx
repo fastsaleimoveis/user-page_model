@@ -1,85 +1,83 @@
-import styled from 'styled-components';
-import { Swiper, SwiperSlide } from 'swiper/react';
+'use client';
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
-import { Pagination, Navigation } from 'swiper/modules';
+import { Carousel } from '@mantine/carousel';
+import { useMediaQuery } from '@mantine/hooks';
 import { ImovelCard } from '../card';
-import { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import '@mantine/carousel/styles.css';
 import Link from 'next/link';
 
-  interface Type3Props {
-    banner?:any;
-    data?:any
-  }
-  
-  export function Type3({
-    banner, data
-  }: Type3Props) {
-    const [isMobile, setIsMobile] = useState(false);
+interface Type3Props {
+  banner?: any;
+  data?: any;
+}
 
-    useEffect(() => {
-      if(window.innerWidth <= 768){
-        setIsMobile(true)
-      }
-    }, []);
+export function Type3({ banner, data }: Type3Props) {
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
-    const [load, setLoad] = useState(true);
+  if (!banner) return null;
 
-    useEffect(() => {
-      if(banner){
-        setLoad(false)
-      }
-    }, [banner])
-
-    return (
-      !load ?
-      <BannerContainer
-        bgcolor={banner.button_background_color}
-        id="destaques"
+  return (
+    <BannerContainer bgcolor={banner.button_background_color} id="destaques">
+      <Title
+        fontsize={banner.title_size}
+        color={banner.title_color}
+        fontfamily={banner.title_font}
+        fontstyle={banner.title_style}
+        textdecoration={banner.title_decoration}
+        fontweight={banner.title_transform}
       >
-        <Title
-          fontsize={banner.title_size}
-          color={banner.title_color}
-          fontfamily={banner.title_font}
-          fontstyle={banner.title_style}
-          textdecoration={banner.title_decoration}
-          fontweight={banner.title_transform}
-        >{banner.title}</Title>
-        <Swiper
-          slidesPerView={isMobile ? 1 : 3}
-          spaceBetween={30}
-          navigation={true}
-          centeredSlides={true}
-          loop={true}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination, Navigation]}
-          className="mySwiper"
-        >
-          {banner.properties.length > 0 && banner.properties.map((imovel:any, index:number) => (
-            <SwiperSlide key={index}><ImovelCard imovel={imovel} data={data}/></SwiperSlide>
+        {banner.title}
+      </Title>
+
+      <Carousel
+        withIndicators
+        withControls
+        height="auto"
+        slideSize={isMobile ? '100%' : '33.3333%'}
+        slideGap="md"
+        loop
+        align="start"
+        slidesToScroll={1}
+        styles={{
+          indicator: {
+            backgroundColor: banner.button_background_color || '#333',
+            width: 8,
+            height: 8,
+            transition: '0.3s',
+            '&[data-active]': {
+              backgroundColor: banner.title_color || '#000',
+            },
+          },
+          control: {
+            color: banner.button_background_color || '#333',
+          },
+        }}
+      >
+        {banner.properties.length > 0 &&
+          banner.properties.map((imovel: any, index: number) => (
+            <Carousel.Slide key={index}>
+              <ImovelCard imovel={imovel} data={data} />
+            </Carousel.Slide>
           ))}
-        </Swiper>
-        <ButtonContainer>
-          <Button
-            fontsize={banner.text_size}
-            color={banner.text_color}
-            bgcolor={banner.button_background_color}
-            fontfamily={banner.text_font}
-            fontstyle={banner.text_style}
-            textdecoration={banner.text_decoration}
-            fontweight={banner.text_transform}
-          ><Link href="/imoveis">{banner?.text}</Link></Button>
-        </ButtonContainer>
-      </BannerContainer>
-      :
-      <></>
-    );
-  }
+      </Carousel>
+
+      <ButtonContainer>
+        <Button
+          fontsize={banner.text_size}
+          color={banner.text_color}
+          bgcolor={banner.button_background_color}
+          fontfamily={banner.text_font}
+          fontstyle={banner.text_style}
+          textdecoration={banner.text_decoration}
+          fontweight={banner.text_transform}
+        >
+          <Link href="/imoveis">{banner?.text}</Link>
+        </Button>
+      </ButtonContainer>
+    </BannerContainer>
+  );
+}
 
   const Title = styled.h2<{
     fontsize: string,

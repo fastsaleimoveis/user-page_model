@@ -1,8 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { headers } from "next/headers";
+import { MantineProvider } from "@mantine/core";
+import '@mantine/core/styles.css';
+import '@mantine/carousel/styles.css';
 
-// "Use client" NÃO, pois estamos fazendo fetch no server:
 const inter = Inter({ subsets: ["latin"] });
 
 async function getPageData(domain: string) {
@@ -25,7 +27,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const host = headers().get("host") || "";
-  const domain = `https://${host}`; // ou algo fixo
+  //const domain = `https://${host}`;
+  const domain = `https://xaiani.fastsaleimoveis.com.br`;
 
   const pageData = await getPageData(domain);
   const gtagId = pageData?.data?.gtag ?? "";
@@ -55,7 +58,9 @@ export default async function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        {children}
+        <MantineProvider>
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );
