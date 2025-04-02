@@ -96,6 +96,7 @@ import { useEffect, useState } from 'react';
   const Card = styled.div`
     width:100%;
     height:380px;
+    max-width:380px;
     background-color:#fff;
     margin:10px auto 30px;
     border-radius:8px;
