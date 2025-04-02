@@ -14,7 +14,6 @@ interface Type3Props {
 
 export function Type3({ banner, data }: Type3Props) {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const loop = banner.properties.length > (isMobile ? 1 : 3);
 
 
   if (!banner) return null;
@@ -38,7 +37,6 @@ export function Type3({ banner, data }: Type3Props) {
         height="auto"
         slideSize={isMobile ? '100%' : '33.3333%'}
         slideGap="md"
-        loop={loop}
         align="start"
         slidesToScroll={1}
         styles={{
