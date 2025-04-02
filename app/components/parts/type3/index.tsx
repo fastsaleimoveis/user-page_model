@@ -93,7 +93,7 @@ const SingleCardWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: 20px;
-  flex-wrap: wrap;
+  flex-direction:row;
 `;
 
   const Title = styled.h2<{
