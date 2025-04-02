@@ -16,6 +16,7 @@ export function Type3({ banner, data }: Type3Props) {
   const slideCount = banner.properties.length;
   const isMobile = useMediaQuery('(max-width: 768px)');
   const controlsEnabled = slideCount > (isMobile ? 1 : 3);
+  const minSlides = isMobile ? 1 : 3;
   const enableCarousel = slideCount > minSlides;
 
   if (!banner) return null;
