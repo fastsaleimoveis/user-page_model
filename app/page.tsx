@@ -4,6 +4,7 @@ import { headers } from 'next/headers';
 
 export async function generateMetadata(context:any) {
   const host = headers().get('host');
+  const start = performance.now();
   try {
     const domain = `https://${host}` || '';
     //const domain = `https://xaiani.fastsaleimoveis.com.br`;
@@ -19,6 +20,9 @@ export async function generateMetadata(context:any) {
         },
         body: JSON.stringify(body),
     });
+
+    const end = performance.now();
+    console.log(`Requisição para user-pages demorou: ${(end - start).toFixed(2)}ms`);
 
     const data = await response.json();
 
