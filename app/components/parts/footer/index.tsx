@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa';
 import { LuMapPin } from "react-icons/lu";
 import { RiYoutubeLine } from 'react-icons/ri';
 import { AiOutlineFacebook } from "react-icons/ai";
@@ -61,6 +61,7 @@ import Link from 'next/link';
                 <li className="address-2">{data.address2}</li>
                 <div className="social-links">
                   {(data.instagram && data.instagram !== '') && <Link href={'https://instagram.com/' + data.instagram?.replace('@', '')} target="_blank"><FaInstagram /></Link>}
+                  {(data.tiktok && data.tiktok !== '') && <Link href={data.tiktok} target="_blank"><FaTiktok /></Link>}
                   {(data.youtube && data.youtube !== '') && <Link href={data.youtube} target="_blank"><RiYoutubeLine /></Link>}
                   {(data.facebook && data.facebook !== '') && <Link href={data.facebook} target="_blank"><AiOutlineFacebook /></Link>}
                 </div>
