@@ -3,18 +3,19 @@ import '@/app/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AboutComp from '../components/sobre';
 import { headers } from 'next/headers';
+import { Loader } from '@mantine/core';
 
 export async function generateMetadata(context:any) {
     const host = headers().get('host');
     try {
        const domain = `https://${host}` || '';
-       //const domain = `https://xaiani.fastsaleimoveis.com.br`;
+       //const domain = `https://kakaoliveirainvestimentos.com.br`;
   
       const body = {
           domain: domain.replace('www.', ''),
       };
   
-      const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
+      const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages-seo/`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -54,12 +55,23 @@ export async function generateMetadata(context:any) {
   }
 
 
-export default async function About(context: any) {
-    const data = await generateMetadata(context);
+export default async function About() {
+  const host = headers().get('host');
+      const domain = `https://${host}` || '';
+      //const domain = `https://kakaoliveirainvestimentos.com.br`;
+
+  const res = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ domain }),
+  });
+
+  const data = await res.json();
 
     return (
+      (data && data.data) ?
       <main>
         <AboutComp data={data.data}/>
-      </main>
+      </main>: <div className='loader-container'><p><Loader/></p></div>
     );
   }

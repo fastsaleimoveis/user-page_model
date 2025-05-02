@@ -35,8 +35,8 @@ export default function AboutComp({ data }: any) {
         {/* {data && 
             <ScriptInjector scriptContent={data.data.header_script} />
         } */}
-         <Header data={data.data.personal_page_headers[0]}/>
-         {!load && data.data.personal_page_sections.sort((a:any, b:any) => a.position - b.position).filter((sections:any) => sections.page_location === 'sobre').map((page:any, index:number) => (
+         <Header data={data.personal_page_headers[0]}/>
+         {!load && data.personal_page_sections.sort((a:any, b:any) => a.position - b.position).filter((sections:any) => sections.page_location === 'sobre').map((page:any, index:number) => (
         <Banner
             key={index}
             style={{
@@ -54,7 +54,7 @@ export default function AboutComp({ data }: any) {
                     <Type2 banner={page}/>
                 }
                 {page.type === 3 &&
-                    <Type3 banner={page} data={data.data.personal_page_cards[0]}/>
+                    <Type3 banner={page} data={data.personal_page_cards[0]}/>
                 }
                 {page.type === 4 &&
                     <Type4 banner={page}/>
@@ -63,10 +63,10 @@ export default function AboutComp({ data }: any) {
                     <Type5 banner={page}/>
                 }
                 {page.type === 6 &&
-                    <SearchBar1 banner={page} user={data.data}/>
+                    <SearchBar1 banner={page} user={data}/>
                 }
                 {page.type === 7 &&
-                    <SearchBar2 banner={page} user={data.data}/>
+                    <SearchBar2 banner={page} user={data}/>
                 }
             </div>
             <div className="background-image" style={{
@@ -75,12 +75,12 @@ export default function AboutComp({ data }: any) {
             }}></div>
         </Banner>
         ))}
-        <Footer data={data.data.personal_page_footers[0]} user={data.data.broker_id ? data.data.broker : data.data.real_estate}/>
+        <Footer data={data.personal_page_footers[0]} user={data.broker_id ? data.broker : data.real_estate}/>
         {/* {data && 
             <BodyScriptInjector scriptContent={data.data.body_script} />
         } */}
 
-        {data.data.personal_page_assets.map((asset:any, index:number) => (
+        {data.personal_page_assets.map((asset:any, index:number) => (
           <div key={index}>
             {(asset.type === 102 && asset.active === 1) &&
               <Whats data={asset}/>

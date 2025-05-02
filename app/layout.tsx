@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 async function getPageData(domain: string) {
   const body = { domain: domain.replace("www.", "") };
   const response = await fetch(
-    "https://dev.fastsaleimoveis.com.br/api/user-pages/",
+    "https://dev.fastsaleimoveis.com.br/api/user-pages-seo/",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -86,6 +86,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
         /* eslint-disable */
       }, [pageId])
 
+
     return (
       imovel ?
         <SingleProperty
@@ -109,7 +110,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
             className="mySwiper"
           >
           {imovel.photos
-            .sort((a: any, b: any) => parseInt(a.order) - parseInt(b.order))
+            ?.sort((a: any, b: any) => parseInt(a.order) - parseInt(b.order))
             .map((photo: any, index: number) => {
               const watermarkUrl = realEstate?.watermark || broker?.watermark;
               let finalPhotoUrl = photo.url;

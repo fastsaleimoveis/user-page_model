@@ -14,7 +14,7 @@ export async function generateMetadata(context:any) {
           domain: domain.replace('www.', ''),
       };
   
-      const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
+      const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages-seo/`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import HomeComp from "./components/home";
 import { headers } from 'next/headers';
+import { Loader } from "@mantine/core";
 
 export async function generateMetadata(context:any) {
   const host = headers().get('host');
@@ -13,17 +14,18 @@ export async function generateMetadata(context:any) {
         domain: domain.replace('www.', ''),
     };
 
-    const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
+    const response = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages-seo/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
     });
-
-    const end = performance.now();
-    // console.log(`Requisição para user-pages demorou: ${(end - start).toFixed(2)}ms`);
-
+    
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('Erro na resposta da API:', response.status, text);
+      throw new Error('Falha na requisição SEO');
+    }
+    
     const data = await response.json();
 
     // console.log(data)
@@ -57,12 +59,23 @@ export async function generateMetadata(context:any) {
 }
 }
 
-export default async function Home(context: any) {
-  const data = await generateMetadata(context);
+export default async function Home() {
+  const host = headers().get('host');
+      const domain = `https://${host}` || '';
+      //const domain = `https://kakaoliveirainvestimentos.com.br`;
+
+  const res = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ domain }),
+  });
+
+  const data = await res.json();
 
   return (
+    (data && data.data) ?
     <main>
       <HomeComp data={data.data}/>
-    </main>
+    </main>: <div className='loader-container'><p><Loader/></p></div>
   );
 }
