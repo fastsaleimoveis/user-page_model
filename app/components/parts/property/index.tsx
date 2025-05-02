@@ -108,14 +108,27 @@ import { MdOutlineContentCopy } from 'react-icons/md';
             modules={[Navigation]}
             className="mySwiper"
           >
-            {imovel.photos.sort((a:any, b: any) => parseInt(a.order) - parseInt(b.order)).map((photo:any, index:number) => (
-              <SwiperSlide key={index}>
-                <Fancybox options={{ infinite: false }} delegate="[data-fancybox='gallery']">
-                  <CarouselImage data-fancybox="gallery" src={photo.url}></CarouselImage>
-                  
-                </Fancybox>
-              </SwiperSlide>
-            ))}
+          {imovel.photos
+            .sort((a: any, b: any) => parseInt(a.order) - parseInt(b.order))
+            .map((photo: any, index: number) => {
+              const watermarkUrl = realEstate?.watermark || broker?.watermark;
+              let finalPhotoUrl = photo.url;
+
+              if (watermarkUrl) {
+                const wmName = watermarkUrl.split('/').pop()?.replace('.png', '');
+                if (wmName) {
+                  finalPhotoUrl = photo.url.replace('/default/', `/${wmName}/`);
+                }
+              }
+
+              return (
+                <SwiperSlide key={index}>
+                  <Fancybox options={{ infinite: false }} delegate="[data-fancybox='gallery']">
+                    <CarouselImage data-fancybox="gallery" src={finalPhotoUrl} />
+                  </Fancybox>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
           <PropertyContent isMobile={isMobile}>
             <PropertyBody

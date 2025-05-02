@@ -11,7 +11,7 @@ export async function generateMetadata(context:any) {
     const host = headers().get('host');
     try {
       const domain = `https://${host}` || '';
-      //const domain = `https://xaiani.fastsaleimoveis.com.br`;
+      //const domain = `https://gottardi.fastsaleimoveis.com.br`;
   
       const body = {
           domain: domain.replace('www.', ''),

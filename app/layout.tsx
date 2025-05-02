@@ -28,7 +28,7 @@ export default async function RootLayout({
 }) {
   const host = headers().get("host") || "";
   const domain = `https://${host}`;
-  //const domain = `https://xaiani.fastsaleimoveis.com.br`;
+  //const domain = `https://kakaoliveirainvestimentos.com.br`;
 
   const pageData = await getPageData(domain);
   const gtagId = pageData?.data?.gtag ?? "";

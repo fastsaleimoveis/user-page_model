@@ -19,7 +19,7 @@ import Link from 'next/link';
       }
     }, [data])
 
-    console.log(data)
+    // console.log(data)
 
     return (
       !load ?

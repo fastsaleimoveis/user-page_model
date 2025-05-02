@@ -7,7 +7,7 @@ export async function generateMetadata(context:any) {
   const start = performance.now();
   try {
     const domain = `https://${host}` || '';
-    //const domain = `https://xaiani.fastsaleimoveis.com.br`;
+    //const domain = `https://kakaoliveirainvestimentos.com.br`;
 
     const body = {
         domain: domain.replace('www.', ''),
@@ -22,7 +22,7 @@ export async function generateMetadata(context:any) {
     });
 
     const end = performance.now();
-    console.log(`Requisição para user-pages demorou: ${(end - start).toFixed(2)}ms`);
+    // console.log(`Requisição para user-pages demorou: ${(end - start).toFixed(2)}ms`);
 
     const data = await response.json();
 
