@@ -7,7 +7,7 @@ import { Loader } from '@mantine/core';
 
 
 export async function generateMetadata(context:any) {
-    const host = headers().get('host');
+    const host = headers().get('host')?.replace('www', '');
     try {
       const domain = `https://${host}` || '';
        //const domain = `https://kakaoliveirainvestimentos.com.br`;
@@ -56,7 +56,7 @@ export async function generateMetadata(context:any) {
   }
 
 export default async function Imoveis() {
-  const host = headers().get('host');
+  const host = headers().get('host')?.replace('www', '');
       const domain = `https://${host}` || '';
       //const domain = `https://kakaoliveirainvestimentos.com.br`;
 
