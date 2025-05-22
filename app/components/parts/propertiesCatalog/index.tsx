@@ -412,7 +412,7 @@ import { IoMdClose } from 'react-icons/io';
             :
             <CatalogContainer>
               {(imoveis && imoveis.length > 0) ? imoveis.map((imovel: any, index: number) => (
-                <ImovelCard key={index} data={data} imovel={imovel.properties}/>
+                <ImovelCard key={index} data={data} imovel={imovel}/>
               ))
                 :
                 <p>Não foram encontrados resultados para os filtros selecionados.</p>
