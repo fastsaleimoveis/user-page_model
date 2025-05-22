@@ -26,7 +26,7 @@ import { useEffect, useState } from 'react';
     )?.url;
 
     return (
-      !load ?
+      (!load && imovel) ?
       <Card className="card" onClick={() => {
         setTimeout(() => {
           window.open('/imovel/' + imovel.slug, '_parent')
@@ -40,7 +40,7 @@ import { useEffect, useState } from 'react';
             textdecoration={data?.text_decoration}
             texttransform={data?.text_transform}
             textstyle={data?.text_style}
-          >{imovel.title}</Title>
+          >{imovel?.title}</Title>
           <DetailsCard
             textcolor={data?.text_color}
             textfont={data?.text_font}
