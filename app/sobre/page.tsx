@@ -9,7 +9,7 @@ export async function generateMetadata(context:any) {
     const host = headers().get('host')?.replace('www', '');
     try {
        const domain = `https://${host}` || '';
-       //const domain = `https://kakaoliveirainvestimentos.com.br`;
+       //const domain = `https://pavanimoveis.com.br`;
   
       const body = {
           domain: domain.replace('www.', ''),
@@ -58,7 +58,7 @@ export async function generateMetadata(context:any) {
 export default async function About() {
   const host = headers().get('host')?.replace('www', '');
       const domain = `https://${host}` || '';
-      //const domain = `https://kakaoliveirainvestimentos.com.br`;
+      //const domain = `https://pavanimoveis.com.br`;
 
   const res = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
     method: 'POST',
