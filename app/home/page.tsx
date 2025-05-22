@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 
 export async function generateMetadata(context:any) {
-  const host = headers().get('host');
+  const host = headers().get('host')?.replace('www', '');
   try {
     const domain = `https://${host}` || '';
     //const domain = `https://kakaoliveirainvestimentos.com.br`;
