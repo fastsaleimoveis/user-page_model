@@ -238,7 +238,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
               className="mySwiper"
             >
               {imoveis.length > 0 && imoveis.map((imovel:any, index:number) => (
-                <SwiperSlide key={index}><ImovelCard imovel={imovel.properties} data={data}/></SwiperSlide>
+                <SwiperSlide key={index}><ImovelCard imovel={imovel} data={data}/></SwiperSlide>
               ))}
             </Swiper>
           </div>
