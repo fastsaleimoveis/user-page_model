@@ -57,7 +57,7 @@ import Link from 'next/link';
                 <h3>Contato</h3>
                 {user && <li><b>CRECI: </b>{user.creci ? user.creci : user.creci_j}</li>}
                 <li><FaWhatsapp />{data.phone}</li>
-                <li><LuMapPin />{data.address1}</li>
+                {data.address1 && <li><LuMapPin />{data.address1}</li>}
                 <li className="address-2">{data.address2}</li>
                 <div className="social-links">
                   {(data.instagram && data.instagram !== '') && <Link href={'https://instagram.com/' + data.instagram?.replace('@', '')} target="_blank"><FaInstagram /></Link>}
@@ -207,7 +207,7 @@ const FooterContatoMenu = styled.ul<{
   & .social-links{
     color:#fff;
     display:flex;
-    margin-left:24px;
+    margin-left:0px;
     margin-top:10px;
     gap:10px;
 
