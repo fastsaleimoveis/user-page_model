@@ -70,7 +70,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
       useEffect(() => {
         if(pageId){
         axios.post('https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties?page=1', {
-            categories: [imovel.categories?.name] || '',
+            categories: imovel.categories?.name ? [imovel.categories.name] : [],
             dorms_number: 0,
             parking_spots:  0,
             local: imovel.address_properties.city,
