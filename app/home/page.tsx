@@ -8,7 +8,7 @@ export async function generateMetadata(context:any) {
   const host = headers().get('host')?.replace('www', '');
   try {
     const domain = `https://${host}` || '';
-    //const domain = `https://bsimoveissc.com.br`;
+    //const domain = `https://imobiliariatedesco.com.br`;
   
       const body = {
           domain: domain.replace('www.', ''),

@@ -8,7 +8,7 @@ export async function generateMetadata(context:any) {
   const start = performance.now();
   try {
     const domain = `https://${host}` || '';
-    //const domain = `https://pavanimoveis.com.br`;
+    //const domain = `https://imobiliariatedesco.com.br`;
 
     const body = {
         domain: domain.replace('www.', ''),
@@ -62,7 +62,7 @@ export async function generateMetadata(context:any) {
 export default async function Home() {
   const host = headers().get('host')?.replace('www', '');
       const domain = `https://${host}` || '';
-      //const domain = `https://pavanimoveis.com.br`;
+      //const domain = `https://imobiliariatedesco.com.br`;
 
   const res = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
     method: 'POST',
