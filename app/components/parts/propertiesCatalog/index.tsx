@@ -70,12 +70,14 @@ import { IoMdClose } from 'react-icons/io';
     const [search, setSearch] = useState(new URLSearchParams(window.location.search).get('search') || '')
     const [category, setCategory] = useState<string[]>(getQueryParam('categories'))
     const [local, setLocal] = useState<any>(new URLSearchParams(window.location.search).get('local') || 'selecione')
+    const [district, setDistrict] = useState<any>(new URLSearchParams(window.location.search).get('district') || 'selecione')
     const [minPrice, setMinPrice] = useState(Number(new URLSearchParams(window.location.search).get('min_value')) / 100 || 0)
     const [maxPrice, setMaxPrice] = useState(Number(new URLSearchParams(window.location.search).get('max_value')) / 100 || 0)
     const [rooms, setRooms] = useState<number[]>(getQueryParam('dorms_number').map(Number))
     const [garage, setGarage] = useState<number[]>(getQueryParam('parking_spots').map(Number))
 
     const [localList, setLocalList] = useState([])
+    const [districtList, setDistrictList] = useState([])
 
     const [loading, setLoading] = useState(false)
 
@@ -99,10 +101,32 @@ import { IoMdClose } from 'react-icons/io';
       }, [pageId])
 
       useEffect(() => {
+        if(pageId && local && local !== 'selecione'){
+          axios.get(`https://dev.fastsaleimoveis.com.br/api/personal-pages/get-properties-districts/${pageId}/${encodeURIComponent(local)}`)
+          .then(response => {
+             setDistrictList(response.data.districts)
+             // Se o bairro selecionado não estiver na lista, resetar
+             const currentDistrict = new URLSearchParams(window.location.search).get('district') || 'selecione'
+             if(currentDistrict !== 'selecione' && !response.data.districts.includes(currentDistrict)){
+               setDistrict('selecione')
+             }
+          })
+          .catch(() => {
+             setDistrictList([])
+             setDistrict('selecione')
+          })
+        } else {
+          setDistrictList([])
+          setDistrict('selecione')
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [pageId, local])
+
+      useEffect(() => {
         handleProperties();
         updateURL();
         /* eslint-disable */
-      }, [search, category, local, minPrice, maxPrice, rooms, garage, page]);
+      }, [search, category, local, district, minPrice, maxPrice, rooms, garage, page]);
 
       const updateURL = () => {
         const queryParams = {
@@ -110,6 +134,7 @@ import { IoMdClose } from 'react-icons/io';
           dorms_number: rooms.length > 0 ? rooms.join(',') : '',
           parking_spots: garage.length > 0 ? garage.join(',') : '',
           local: local !== 'selecione' ? local : '',
+          district: district !== 'selecione' ? district : '',
           max_value: maxPrice ? (maxPrice * 100).toString() : '',
           min_value: minPrice ? (minPrice * 100).toString() : '',
           search: search,
@@ -133,6 +158,7 @@ import { IoMdClose } from 'react-icons/io';
         dorms_number: rooms.length > 0 && !rooms.includes(0) ? rooms : 0,
         parking_spots: garage.length > 0 && !garage.includes(0) ? garage : 0,
         local: local !== 'selecione' ? local : '',
+        district: district !== 'selecione' ? district : '',
         max_value: maxPrice ? maxPrice * 100 : 0,
         min_value: minPrice ? minPrice * 100 : 0,
         search: search,
@@ -165,6 +191,7 @@ import { IoMdClose } from 'react-icons/io';
       setSearch('')
       setCategory([])
       setLocal('selecione')
+      setDistrict('selecione')
       setMinPrice(0)
       setMaxPrice(0)
       setRooms([])
@@ -323,10 +350,21 @@ import { IoMdClose } from 'react-icons/io';
                 <label>Cidade</label>
                 <Input type='select' value={local} onChange={(e) => setLocal(e.target.value)}>
                   <option value='selecione'>Selecione a cidade</option>
-                  {localList.sort().map((local, index) => (
-                    <option key={index} value={local}>{local}</option>
+                  {localList.sort().map((localItem, index) => (
+                    <option key={index} value={localItem}>{localItem}</option>
                   ))}
                 </Input>
+                {local !== 'selecione' && districtList.length > 0 && (
+                  <>
+                    <label style={{marginTop: '15px'}}>Bairro</label>
+                    <Input type='select' value={district} onChange={(e) => setDistrict(e.target.value)}>
+                      <option value='selecione'>Selecione o bairro</option>
+                      {districtList.map((districtItem, index) => (
+                        <option key={index} value={districtItem}>{districtItem}</option>
+                      ))}
+                    </Input>
+                  </>
+                )}
               </LocalContainer>
             </Collapse>
           </div>
