@@ -149,7 +149,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
               <p>{imovel.sku}</p>
               <h3>{imovel.title}</h3>
               <div className="city">
-                <p>{imovel.address_properties.city}/{imovel.address_properties.state}</p><button onClick={toggle}><FiShare2 />Compartilhe</button>
+                <p>{imovel.address_properties.district}, {imovel.address_properties.city}/{imovel.address_properties.state}</p><button onClick={toggle}><FiShare2 />Compartilhe</button>
               </div>
               <div className="details">
               {(imovel.suites_number && imovel.suites_number > 0) ?
