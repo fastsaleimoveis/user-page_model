@@ -33,29 +33,31 @@ export default async function RootLayout({
   const pageData = await getPageData(domain);
   const gtagId = pageData?.data?.gtag ?? "";
 
+  // Validar se o gtagId está no formato correto (AW-XXXXXXXXXXX para Google Ads ou G-XXXXXXXXXX para Google Analytics)
+  const isValidGtagId = gtagId && (gtagId.startsWith('AW-') || gtagId.startsWith('G-'));
+
   return (
     <html lang="pt-BR">
       <head>
-        <script
-          async
-          src={
-            gtagId
-              ? `https://www.googletagmanager.com/gtag/js?id=${gtagId}`
-              : ""
-          }
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: gtagId
-              ? `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${gtagId}');
-              `
-              : "",
-          }}
-        />
+        {isValidGtagId && (
+          <>
+            {/* Google Tag Manager / Google Ads */}
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${gtagId}');
+                `,
+              }}
+            />
+          </>
+        )}
       </head>
       <body className={inter.className}>
         <MantineProvider>
