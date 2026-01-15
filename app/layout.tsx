@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { headers } from "next/headers";
 import { MantineProvider } from "@mantine/core";
+import Script from "next/script";
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 
@@ -39,14 +40,21 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
+        {/* Meta tags e outros elementos do head */}
+      </head>
+      <body className={inter.className}>
         {isValidGtagId && (
           <>
-            {/* Google Tag Manager / Google Ads */}
-            <script
-              async
+            {/* Google Tag Manager / Google Ads - Carregamento do script */}
+            <Script
+              id="google-ads-loader"
+              strategy="beforeInteractive"
               src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
             />
-            <script
+            {/* Google Tag Manager / Google Ads - Configuração */}
+            <Script
+              id="google-ads-config"
+              strategy="beforeInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -58,8 +66,6 @@ export default async function RootLayout({
             />
           </>
         )}
-      </head>
-      <body className={inter.className}>
         <MantineProvider>
           {children}
         </MantineProvider>
