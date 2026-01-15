@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { headers } from "next/headers";
 import { MantineProvider } from "@mantine/core";
-import Script from "next/script";
+import { GoogleAdsScript } from "./components/GoogleAdsScript";
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 
@@ -40,21 +40,16 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        {/* Meta tags e outros elementos do head */}
-      </head>
-      <body className={inter.className}>
         {isValidGtagId && (
           <>
-            {/* Google Tag Manager / Google Ads - Carregamento do script */}
-            <Script
-              id="google-ads-loader"
-              strategy="beforeInteractive"
+            {/* Google Tag Manager / Google Ads - Scripts renderizados no servidor */}
+            <script
+              async
               src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
+              suppressHydrationWarning
             />
-            {/* Google Tag Manager / Google Ads - Configuração */}
-            <Script
-              id="google-ads-config"
-              strategy="beforeInteractive"
+            <script
+              id={`google-ads-config-${gtagId}`}
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -63,9 +58,14 @@ export default async function RootLayout({
                   gtag('config', '${gtagId}');
                 `,
               }}
+              suppressHydrationWarning
             />
           </>
         )}
+      </head>
+      <body className={inter.className}>
+        {/* Fallback client-side caso os scripts não sejam renderizados no servidor */}
+        {isValidGtagId && <GoogleAdsScript gtagId={gtagId} />}
         <MantineProvider>
           {children}
         </MantineProvider>
