@@ -12,14 +12,12 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fancyapps/ui": "^5.0.33",
-    "@mantine/carousel": "^7.17.3",
     "@mantine/core": "^7.17.3",
     "@mantine/hooks": "^7.17.3",
     "@mui/material": "^5.15.6",
     "@mui/styled-engine-sc": "^6.0.0-alpha.13",
     "axios": "^1.6.6",
     "bootstrap": "^5.3.2",
-    "embla-carousel-react": "^7.1.0",
     "next": "^14.1.0",
     "qs": "^6.11.2",
     "react": "^18.2.0",
@@ -27,8 +25,7 @@
     "react-helmet-async": "^2.0.4",
     "react-icons": "^5.0.1",
     "reactstrap": "^9.2.2",
-    "styled-components": "^6.1.8",
-    "swiper": "^11.0.5"
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
     "@types/node": "^20",

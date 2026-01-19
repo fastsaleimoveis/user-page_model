@@ -1,3 +1,5 @@
+'use client';
+
 import styled from 'styled-components';
 import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa';
 import { LuMapPin } from "react-icons/lu";

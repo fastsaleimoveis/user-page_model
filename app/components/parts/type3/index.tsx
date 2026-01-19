@@ -1,11 +1,11 @@
 'use client';
 
-import { Carousel } from '@mantine/carousel';
-import { useMediaQuery } from '@mantine/hooks';
+import { Carousel } from '@/app/components/ui/Carousel';
 import { ImovelCard } from '../card';
 import styled from 'styled-components';
-import '@mantine/carousel/styles.css';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { isValidImovel } from '@/app/utils/validateImovel';
 
 interface Type3Props {
   banner?: any;
@@ -13,13 +13,25 @@ interface Type3Props {
 }
 
 export function Type3({ banner, data }: Type3Props) {
-  const slideCount = banner.properties.length;
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  // Filtrar apenas imóveis válidos
+  const validProperties = banner?.properties?.filter((imovel: any) => isValidImovel(imovel)) || [];
+  const slideCount = validProperties.length;
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const controlsEnabled = slideCount > (isMobile ? 1 : 3);
   const minSlides = isMobile ? 1 : 3;
   const enableCarousel = slideCount > minSlides;
 
-  if (!banner) return null;
+  if (!banner || validProperties.length === 0) return null;
 
   return (
     <BannerContainer bgcolor={banner.button_background_color} id="destaques">
@@ -36,37 +48,23 @@ export function Type3({ banner, data }: Type3Props) {
 
       {enableCarousel ? (
         <Carousel
-          withIndicators
-          withControls
-          height="auto"
-          slideSize={isMobile ? '100%' : '33.3333%'}
-          slideGap="md"
-          align="start"
-          slidesToScroll={1}
-          styles={{
-            indicator: {
-              backgroundColor: banner.button_background_color || '#333',
-              width: 8,
-              height: 8,
-              transition: '0.3s',
-              '&[data-active]': {
-                backgroundColor: banner.title_color || '#000',
-              },
-            },
-            control: {
-              color: banner.button_background_color || '#333',
-            },
-          }}
+          slidesPerView={isMobile ? 1 : 3}
+          spaceBetween={16}
+          navigation={true}
+          pagination={true}
+          loop={false}
+          centeredSlides={false}
+          indicatorColor="#ccc"
+          indicatorActiveColor={banner.title_color || '#000'}
+          controlColor={banner.button_background_color || '#333'}
         >
-          {banner.properties.map((imovel: any, index: number) => (
-            <Carousel.Slide key={index}>
-              <ImovelCard imovel={imovel} data={data} />
-            </Carousel.Slide>
+          {validProperties.map((imovel: any, index: number) => (
+            <ImovelCard key={index} imovel={imovel} data={data} />
           ))}
         </Carousel>
       ) : (
         <SingleCardWrapper>
-          {banner.properties.map((imovel: any, index: number) => (
+          {validProperties.map((imovel: any, index: number) => (
             <ImovelCard key={index} imovel={imovel} data={data} />
           ))}
         </SingleCardWrapper>
@@ -161,15 +159,5 @@ const SingleCardWrapper = styled.div`
     height:100%;
     padding:20px 0;
 
-    & .swiper{
-      padding:0 30px;
-    }
-
-    .mySwiper .swiper-button-prev, .mySwiper .swiper-button-next{
-      color:${p => p.bgcolor ? p.bgcolor : "#333"};
-    }
-    .mySwiper .swiper-pagination-bullet-active{
-      background-color:${p => p.bgcolor ? p.bgcolor : "#333"}!important;
-    }
   `;
 

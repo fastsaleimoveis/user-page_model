@@ -34,6 +34,7 @@ import { useEffect, useState } from 'react';
       }}>
         <ImageC style={{backgroundImage:`url('${imageWithMinOrder}')`}}></ImageC>
         <InfoContainer bgcolor={data?.background_color}>
+          <p style={{fontSize: '10px', marginBottom: '2px', color: data?.text_color, fontFamily: data?.text_font, textDecoration: data?.text_decoration, fontWeight: data?.text_transform, fontStyle: data?.text_style}}>{imovel.sku}</p>
           <Title
             textcolor={data?.text_color}
             textfont={data?.text_font}
@@ -108,7 +109,7 @@ import { useEffect, useState } from 'react';
     background-position:center center;
     background-size:cover;
     background-color:#cdcdcd;
-    height:170px;
+    height:160px;
     width:100%;
     border-radius: 8px 8px 0 0;
   `;
@@ -118,7 +119,7 @@ import { useEffect, useState } from 'react';
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    height:210px;
+    height:220px;
     background-color:${p => p.bgcolor ? p.bgcolor : "#fff"};
   `;
 

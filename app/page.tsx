@@ -5,7 +5,6 @@ import { Loader } from "@mantine/core";
 
 export async function generateMetadata(context:any) {
   const host = headers().get('host')?.replace('www', '');
-  const start = performance.now();
   try {
     const domain = `https://${host}` || '';
     //const domain = `https://imobiliariatedesco.com.br`;
@@ -18,6 +17,7 @@ export async function generateMetadata(context:any) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
+      next: { revalidate: 300 }, // Cache por 5 minutos (ISR)
     });
     
     if (!response.ok) {
@@ -27,8 +27,6 @@ export async function generateMetadata(context:any) {
     }
     
     const data = await response.json();
-
-    // console.log(data)
 
     return {
       title: data?.data?.seo_title ?? '',
@@ -61,21 +59,44 @@ export async function generateMetadata(context:any) {
 
 export default async function Home() {
   const host = headers().get('host')?.replace('www', '');
-      const domain = `https://${host}` || '';
-      //const domain = `https://imobiliariatedesco.com.br`;
+  const domain = `https://${host}` || '';
+  //const domain = `https://imobiliariatedesco.com.br`;
 
-  const res = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ domain }),
-  });
+  try {
+    const res = await fetch(`https://dev.fastsaleimoveis.com.br/api/user-pages/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ domain }),
+      next: { revalidate: 300 }, // Cache por 5 minutos (ISR)
+    });
 
-  const data = await res.json();
+    if (!res.ok) {
+      throw new Error(`Erro ao buscar dados: ${res.status}`);
+    }
 
-  return (
-    (data && data.data) ?
-    <main>
-      <HomeComp data={data.data}/>
-    </main>: <div className='loader-container'><p><Loader/></p></div>
-  );
+    const data = await res.json();
+
+    if (!data || !data.data) {
+      return (
+        <div className='loader-container'>
+          <p><Loader/></p>
+          <p>Dados não encontrados</p>
+        </div>
+      );
+    }
+
+    return (
+      <main>
+        <HomeComp data={data.data}/>
+      </main>
+    );
+  } catch (error) {
+    console.error('Erro ao carregar página:', error);
+    return (
+      <div className='loader-container'>
+        <p><Loader/></p>
+        <p>Erro ao carregar página. Tente novamente.</p>
+      </div>
+    );
+  }
 }

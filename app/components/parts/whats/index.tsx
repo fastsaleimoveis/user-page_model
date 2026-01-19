@@ -1,3 +1,5 @@
+'use client';
+
 import styled from 'styled-components';
 import { FaWhatsapp } from "react-icons/fa";
 import { useEffect, useState } from 'react';

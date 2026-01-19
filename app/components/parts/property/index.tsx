@@ -1,16 +1,13 @@
+'use client';
+
 import styled from 'styled-components';
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
-import { Navigation, Pagination } from 'swiper/modules';
+import { Carousel } from '@/app/components/ui/Carousel';
 import { IoBedOutline, IoCarOutline, IoLogoWhatsapp } from 'react-icons/io5';
 import { RxRulerSquare } from 'react-icons/rx';
 import Fancybox from './Fancybox';
 import { FiShare2 } from 'react-icons/fi';
 import { ImovelCard } from '../card';
+import { isValidImovel } from '@/app/utils/validateImovel';
 import { useEffect, useState } from 'react';
 import { Fancybox as NativeFancybox } from "@fancyapps/ui";
 import axios from 'axios';
@@ -97,17 +94,17 @@ import { MdOutlineContentCopy } from 'react-icons/md';
           textdecoration={banner.title_decoration}
           fontweight={banner.title_transform}
         >
-          <Swiper
+          <Carousel
             slidesPerView={isMobile ? 1 : 3}
             spaceBetween={10}
             navigation={true}
             centeredSlides={true}
             loop={true}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Navigation]}
+            pagination={true}
             className="mySwiper"
+            indicatorColor="#ccc"
+            indicatorActiveColor={banner.button_background_color || '#333'}
+            controlColor={banner.button_background_color || '#333'}
           >
           {imovel.photos
             ?.sort((a: any, b: any) => parseInt(a.order) - parseInt(b.order))
@@ -123,14 +120,12 @@ import { MdOutlineContentCopy } from 'react-icons/md';
               }
 
               return (
-                <SwiperSlide key={index}>
-                  <Fancybox options={{ infinite: false }} delegate="[data-fancybox='gallery']">
-                    <CarouselImage data-fancybox="gallery" src={finalPhotoUrl} />
-                  </Fancybox>
-                </SwiperSlide>
+                <Fancybox key={index} options={{ infinite: false }} delegate="[data-fancybox='gallery']">
+                  <CarouselImage data-fancybox="gallery" src={finalPhotoUrl} />
+                </Fancybox>
               );
             })}
-          </Swiper>
+          </Carousel>
           <PropertyContent isMobile={isMobile}>
             <PropertyBody
               fontsize={banner.title_size}
@@ -225,22 +220,25 @@ import { MdOutlineContentCopy } from 'react-icons/md';
           </PropertyContent>
           <div className="relatedProperties">
             <h3>Imóveis relacionados</h3>
-            <Swiper
+            <Carousel
               slidesPerView={isMobile ? 1 : 3}
               spaceBetween={30}
               navigation={true}
               centeredSlides={true}
               loop={true}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[Pagination, Navigation]}
+              pagination={true}
               className="mySwiper"
+              indicatorColor="#ccc"
+              indicatorActiveColor="#333"
+              controlColor="#333"
             >
-              {imoveis.length > 0 && imoveis.map((imovel:any, index:number) => (
-                <SwiperSlide key={index}><ImovelCard imovel={imovel} data={data}/></SwiperSlide>
-              ))}
-            </Swiper>
+              {imoveis.filter((imovel: any) => isValidImovel(imovel)).length > 0 && 
+                imoveis
+                  .filter((imovel: any) => isValidImovel(imovel))
+                  .map((imovel:any, index:number) => (
+                    <ImovelCard key={index} imovel={imovel} data={data}/>
+                  ))}
+            </Carousel>
           </div>
 
           <Modal
@@ -363,7 +361,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
 const PropertyContent = styled.div<{isMobile: boolean}>`
   width:100%;
   max-width:1024px;
-  margin:40px auto;
+  margin:0 auto 40px;
   display:flex;
   padding:0 10px;
   flex-direction:${p => p.isMobile ? 'column' : 'row'};
@@ -688,12 +686,6 @@ const SingleProperty = styled.div<{
   textdecoration:string,
   fontweight:string,
 }>`
-  .mySwiper .swiper-button-prev, .mySwiper .swiper-button-next{
-    color:${p => p.bgcolor};
-  }
-  .mySwiper .swiper-pagination-bullet-active{
-    background-color:${p => p.bgcolor}!important;
-  }
 
   & .relatedProperties{
     max-width:960px;

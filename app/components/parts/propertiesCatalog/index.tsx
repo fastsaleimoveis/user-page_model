@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Button, Col, Collapse, Input, Row, Spinner } from 'reactstrap';
 import styled from 'styled-components';
 import { ImovelCard } from '../card';
+import { isValidImovel } from '@/app/utils/validateImovel';
 import axios from 'axios';
 import { IoSearchOutline } from 'react-icons/io5';
 import { Pagination } from '@mui/material';
@@ -449,9 +450,12 @@ import { IoMdClose } from 'react-icons/io';
               <span><Spinner></Spinner></span>
             :
             <CatalogContainer>
-              {(imoveis && imoveis.length > 0) ? imoveis.map((imovel: any, index: number) => (
-                <ImovelCard key={index} data={data} imovel={imovel}/>
-              ))
+              {(imoveis && imoveis.filter((imovel: any) => isValidImovel(imovel)).length > 0) ? 
+                imoveis
+                  .filter((imovel: any) => isValidImovel(imovel))
+                  .map((imovel: any, index: number) => (
+                    <ImovelCard key={index} data={data} imovel={imovel}/>
+                  ))
                 :
                 <p>Não foram encontrados resultados para os filtros selecionados.</p>
             }

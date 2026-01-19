@@ -2,18 +2,30 @@ import { useEffect } from 'react';
 
 const ScriptInjector = ({ scriptContent }) => {
   useEffect(() => {
+    if (!scriptContent) return;
+
     const container = document.createElement('div');
     container.innerHTML = scriptContent;
   
+    // Armazene referências aos elementos adicionados
+    const addedElements = [];
+
     Array.from(container.children).forEach((child) => {
-      document.head.appendChild(child.cloneNode(true));
+      const clonedChild = child.cloneNode(true);
+      document.head.appendChild(clonedChild);
+      addedElements.push(clonedChild);
     });
   
     return () => {
-      Array.from(container.children).forEach((child) => {
-        // Verifica se o nó pai é document.head antes de tentar removê-lo
-        if (child.parentNode === document.head) {
-          document.head.removeChild(child);
+      // Remove os elementos usando as referências armazenadas
+      addedElements.forEach((element) => {
+        if (element && element.parentNode === document.head) {
+          try {
+            document.head.removeChild(element);
+          } catch (error) {
+            // Ignora erros se o elemento já foi removido
+            console.warn('Erro ao remover elemento do head:', error);
+          }
         }
       });
     };
