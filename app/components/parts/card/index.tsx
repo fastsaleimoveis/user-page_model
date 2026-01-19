@@ -23,7 +23,7 @@ import { useEffect, useState } from 'react';
 
     const imageWithMinOrder = imovel?.photos?.reduce((min:any, photo:any) => 
       photo.order < min.order ? photo : min, imovel?.photos[0]
-    )?.url;
+    )?.medium_image;
 
     return (
       (!load && imovel) ?
