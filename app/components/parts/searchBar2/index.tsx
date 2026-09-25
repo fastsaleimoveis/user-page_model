@@ -141,6 +141,7 @@ import axios from 'axios';
                   <option value='Apartamento'>Apartamento</option>
                   <option value='Casa'>Casa</option>
                   <option value='Comercial'>Comercial</option>
+                  <option value='Prédio inteiro'>Prédio inteiro</option>
                   <option value='Outros'>Outros</option>
                 </Input></FilterItem>
             <FilterItem

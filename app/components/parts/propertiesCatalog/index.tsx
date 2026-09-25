@@ -318,6 +318,16 @@ import { IoMdClose } from 'react-icons/io';
                     </Col>
                     <Col xs={6}>
                       <button
+                        onClick={() => handleCategoryClick('Prédio inteiro')}
+                        className={`option ${category.includes('Prédio inteiro') ? 'active' : ''}`}
+                        id='building'
+                      >
+                        <div className="icon"></div>
+                        <p>Prédio inteiro</p>
+                      </button>
+                    </Col>
+                    <Col xs={6}>
+                      <button
                         onClick={() => handleCategoryClick('Outros')}
                         id='outros'
                         className={`option ${category.includes('Outros') ? 'active' : ''}`}
